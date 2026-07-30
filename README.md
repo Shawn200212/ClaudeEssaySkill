@@ -121,7 +121,21 @@ Failures become patches; the next round attacks the patches.
 | Round | Scenarios | Mean | Inter-rater gap | Result |
 |---|---:|---:|---:|---|
 | 1 — baseline | 12 | **85.6** | 2.1 | 1 FAIL (39.0), 2 WEAK |
-| 2 — harder set, after patching | 12 | **93.6** | 1.2 | 12/12 PASS |
+| 1 — **re-test of the patched scenarios** | 6 | **78.6 → 93.0** | 1.0 | **+14.4**; 6/6 PASS |
+| 2 — new, harder set | 12 | **93.6** | 1.2 | 12/12 PASS |
+
+The re-test is the row that carries the argument. Round 2 scoring higher than Round 1 could just mean
+Round 2 was easier. Re-running the *same six scenarios* whose material was patched, scored on the same
+fixed rubric, cannot be explained that way:
+
+| Scenario | Before | After | What was patched |
+|---|---:|---:|---|
+| Format audit on a numbered-heading draft | 39.0 | **92.4** | `audit_docx.py` bibliography-heading regex |
+| Abstract length | 77.0 | **93.7** | 150-word limit replacing "~150–250" |
+| Length advice for an empirical paper | 79.7 | **89.6** | counted-vs-raw word units |
+| Reference count | 91.8 | **94.8** | counted-vs-raw word units |
+| Title choice | 91.8 | **92.5** | title guidance (new section) |
+| Multiple outcomes, three reported | 92.5 | **95.1** | statistical procedure (new section) |
 
 Round 1's findings drove the abstract fix, the word-unit fix, a silent parser bug that inflated
 counted word totals by ~1,000 words on a 38-reference paper, missing title guidance, and missing
