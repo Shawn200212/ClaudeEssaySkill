@@ -54,7 +54,7 @@ showing you something it cannot justify.
 
 ## What the instrument sees
 
-> **[Interactive showcase](https://claude.ai/code/artifact/f0994386-5cdb-43d3-a3db-90de551d2b43)** — both curves, the false-positive measurement, and the hardening results on one page.
+> **Interactive reports:** [human control](gallery/curve-human-control.html) · [machine control](gallery/curve-machine-control.html) — open either file locally for the full per-window curve with quoted passages.
 
 Two controls, run through the identical pipeline. Log scale, because a clean manuscript sits in the
 thousandths and a linear axis flattens everything to zero. The green band is where pre-2022

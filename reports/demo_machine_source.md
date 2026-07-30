@@ -1,7 +1,7 @@
 # Toward a Holistic Framework for Understanding User Engagement with Adaptive Interfaces
 
-*Machine-generated control document. Every word below was produced by a language model
-(Claude Opus 5) for the express purpose of calibrating this instrument. Its provenance is
+*Machine-generated control document. Every word below was produced by a large language model
+for the express purpose of calibrating this instrument. Its provenance is
 certain, which is what makes it usable as a control. It is deliberately written in the
 register that generated academic prose tends toward — it is not a real paper, and its
 claims, citations and findings are fabricated.*
