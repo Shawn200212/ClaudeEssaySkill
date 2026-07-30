@@ -1,0 +1,78 @@
+{
+ "version": 2,
+ "window_words": 160,
+ "stride_words": 40,
+ "model": "desklib/ai-text-detector-v1.01",
+ "seed": 20260730,
+ "strata": {
+  "published": {
+   "n_papers": 55,
+   "n_windows": 1430,
+   "percentiles": {
+    "p50": 0.277198,
+    "p75": 0.795861,
+    "p90": 0.979537,
+    "p95": 0.994956,
+    "p99": 0.999511,
+    "p999": 0.99996,
+    "max": 0.999963
+   },
+   "mean": 0.407925,
+   "share_over_0_5": 37.9,
+   "share_over": {
+    "0.1": 66.85,
+    "0.3": 48.81,
+    "0.5": 37.9,
+    "0.7": 29.23,
+    "0.9": 18.95
+   },
+   "median": 0.27722
+  },
+  "pre_llm": {
+   "n_papers": 30,
+   "n_windows": 780,
+   "percentiles": {
+    "p50": 0.078552,
+    "p75": 0.338524,
+    "p90": 0.738983,
+    "p95": 0.882343,
+    "p99": 0.983095,
+    "p999": 0.997206,
+    "max": 0.999501
+   },
+   "mean": 0.223487,
+   "share_over_0_5": 17.05,
+   "share_over": {
+    "0.1": 45.64,
+    "0.3": 27.18,
+    "0.5": 17.05,
+    "0.7": 11.67,
+    "0.9": 4.49
+   },
+   "median": 0.07849
+  }
+ },
+ "controls": {
+  "darwin_human": 0.13605,
+  "assistant_typical": 0.99999
+ },
+ "primary_stratum": "pre_llm",
+ "percentiles": {
+  "p50": 0.078552,
+  "p75": 0.338524,
+  "p90": 0.738983,
+  "p95": 0.882343,
+  "p99": 0.983095,
+  "p999": 0.997206,
+  "max": 0.999501
+ },
+ "n_windows": 780,
+ "n_papers": 30,
+ "interpretation": {
+  "false_positive_floor": "17.1% of windows from papers written before ChatGPT existed score above 0.5, and 4.5% above 0.9. That is the detector's false-positive rate on definitively human academic prose at this window size, and it is why no single window can support a conclusion.",
+  "window_size_finding": "Window size was swept at 160/300/450/600 words. The human false-positive rate stays 16-21% at every size, so longer windows do not buy calibration -- but the Darwin public-domain control degrades badly with length (0.019 at 160 words, 0.79 at 450+). 160 words is therefore kept: best control behaviour, and the finest resolution for the curve.",
+  "strata_gap": "Published 2023-26 papers sit far above pre-2022 papers: median window 0.277 vs 0.079, share over 0.5 of 37.9% vs 17.1%. Consistent with widespread LLM assistance in current academic writing, but confounded with sample differences (venue-stated CHI-family 2023-26 vs general cs.HC 2018-21), so read it as a large signal of unknown composition, not as a measured rate of AI use.",
+  "why_distributional": "Both strata have p99 near 1.0, so 'windows above the human p99' is a vacuous gate. The manuscript is compared distributionally instead: its median window and its share above 0.5, against both strata."
+ },
+ "_note": "Per-window score arrays are omitted: they are derived from copyrighted papers. Percentiles, means and share-over-threshold are measurements and are published in full. Rebuild the full arrays with scripts/calibrate.py."
+}

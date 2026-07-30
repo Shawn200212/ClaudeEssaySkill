@@ -1,0 +1,10 @@
+Copyright (c) 2026 the ClaudeEssaySkill author. All rights reserved.
+
+The skill source (SKILL.md files, reference documents, and scripts) is NOT covered by an
+open-source licence and is distributed only by invitation. Open an issue on this repository
+describing your intended use to request access.
+
+The derived measurements in `data/` are released separately under CC BY 4.0; see LICENSE-DATA.
+
+No permission is granted to redistribute the skill source, to publish it under another name,
+or to incorporate it into a product, without written permission from the author.

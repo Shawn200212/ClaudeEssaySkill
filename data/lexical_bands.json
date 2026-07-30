@@ -1,0 +1,527 @@
+{
+ "version": 1,
+ "note": "per-1,000-prose-word rates from published human-authored papers, measured with the same analyzers.py as exam.py",
+ "strata": {
+  "published": {
+   "n_papers": 116,
+   "metrics": {
+    "DEFENSIVE": {
+     "n": 116,
+     "p10": 0.0,
+     "p25": 0.098,
+     "median": 0.243,
+     "p75": 0.425,
+     "p90": 0.774,
+     "p95": 0.972
+    },
+    "DEFENSIVE_load": {
+     "n": 116,
+     "p10": 0.0,
+     "p25": 0.155,
+     "median": 0.385,
+     "p75": 0.683,
+     "p90": 1.197,
+     "p95": 1.459
+    },
+    "REDUNDANT": {
+     "n": 116,
+     "p10": 0.235,
+     "p25": 0.331,
+     "median": 0.679,
+     "p75": 1.119,
+     "p90": 1.716,
+     "p95": 2.067
+    },
+    "REDUNDANT_load": {
+     "n": 116,
+     "p10": 0.146,
+     "p25": 0.267,
+     "median": 0.659,
+     "p75": 1.069,
+     "p90": 1.996,
+     "p95": 2.423
+    },
+    "PRECISION": {
+     "n": 116,
+     "p10": 3.297,
+     "p25": 4.247,
+     "median": 5.432,
+     "p75": 7.151,
+     "p90": 8.496,
+     "p95": 10.101
+    },
+    "PRECISION_load": {
+     "n": 116,
+     "p10": 2.187,
+     "p25": 2.75,
+     "median": 3.61,
+     "p75": 4.452,
+     "p90": 5.81,
+     "p95": 6.212
+    },
+    "FLOW": {
+     "n": 116,
+     "p10": 0.0,
+     "p25": 0.0,
+     "median": 0.0,
+     "p75": 0.158,
+     "p90": 0.301,
+     "p95": 0.452
+    },
+    "FLOW_load": {
+     "n": 116,
+     "p10": 0.0,
+     "p25": 0.0,
+     "median": 0.0,
+     "p75": 0.234,
+     "p90": 0.407,
+     "p95": 0.678
+    },
+    "k_hedge_stack": {
+     "n": 116,
+     "p10": 0.0,
+     "p25": 0.0,
+     "median": 0.0,
+     "p75": 0.065,
+     "p90": 0.094,
+     "p95": 0.114
+    },
+    "k_disclaimer": {
+     "n": 116,
+     "p10": 0.0,
+     "p25": 0.0,
+     "median": 0.0,
+     "p75": 0.154,
+     "p90": 0.279,
+     "p95": 0.339
+    },
+    "k_near_duplicate": {
+     "n": 116,
+     "p10": 0.0,
+     "p25": 0.0,
+     "median": 0.085,
+     "p75": 0.29,
+     "p90": 0.559,
+     "p95": 0.798
+    },
+    "k_filler": {
+     "n": 116,
+     "p10": 0.0,
+     "p25": 0.181,
+     "median": 0.466,
+     "p75": 0.855,
+     "p90": 1.211,
+     "p95": 1.413
+    },
+    "k_vague_term": {
+     "n": 116,
+     "p10": 1.959,
+     "p25": 2.528,
+     "median": 3.654,
+     "p75": 5.325,
+     "p90": 6.475,
+     "p95": 7.455
+    },
+    "k_orphan_reference": {
+     "n": 116,
+     "p10": 0.197,
+     "p25": 0.425,
+     "median": 0.69,
+     "p75": 1.186,
+     "p90": 1.612,
+     "p95": 2.09
+    },
+    "k_no_connectives": {
+     "n": 116,
+     "p10": 0.0,
+     "p25": 0.0,
+     "median": 0.0,
+     "p75": 0.156,
+     "p90": 0.272,
+     "p95": 0.452
+    },
+    "k_uncited_attribution": {
+     "n": 116,
+     "p10": 0.0,
+     "p25": 0.0,
+     "median": 0.091,
+     "p75": 0.242,
+     "p90": 0.537,
+     "p95": 0.648
+    },
+    "sent_cv": {
+     "n": 116,
+     "p10": 0.492,
+     "p25": 0.52,
+     "median": 0.56,
+     "p75": 0.602,
+     "p90": 0.676,
+     "p95": 0.735
+    },
+    "sent_mean": {
+     "n": 116,
+     "p10": 20.7,
+     "p25": 22.1,
+     "median": 23.5,
+     "p75": 25.2,
+     "p90": 28.7,
+     "p95": 30.4
+    }
+   }
+  },
+  "pre_llm": {
+   "n_papers": 30,
+   "metrics": {
+    "DEFENSIVE": {
+     "n": 30,
+     "p10": 0.0,
+     "p25": 0.0,
+     "median": 0.276,
+     "p75": 0.611,
+     "p90": 0.804,
+     "p95": 1.183
+    },
+    "DEFENSIVE_load": {
+     "n": 30,
+     "p10": 0.0,
+     "p25": 0.0,
+     "median": 0.458,
+     "p75": 1.162,
+     "p90": 1.71,
+     "p95": 1.96
+    },
+    "REDUNDANT": {
+     "n": 30,
+     "p10": 0.244,
+     "p25": 0.598,
+     "median": 1.095,
+     "p75": 1.826,
+     "p90": 2.433,
+     "p95": 2.599
+    },
+    "REDUNDANT_load": {
+     "n": 30,
+     "p10": 0.194,
+     "p25": 0.416,
+     "median": 0.811,
+     "p75": 1.554,
+     "p90": 1.758,
+     "p95": 3.431
+    },
+    "PRECISION": {
+     "n": 30,
+     "p10": 3.867,
+     "p25": 4.366,
+     "median": 5.448,
+     "p75": 6.562,
+     "p90": 8.537,
+     "p95": 9.477
+    },
+    "PRECISION_load": {
+     "n": 30,
+     "p10": 2.417,
+     "p25": 3.2,
+     "median": 3.707,
+     "p75": 4.895,
+     "p90": 5.98,
+     "p95": 7.114
+    },
+    "FLOW": {
+     "n": 30,
+     "p10": 0.0,
+     "p25": 0.0,
+     "median": 0.0,
+     "p75": 0.204,
+     "p90": 0.463,
+     "p95": 0.775
+    },
+    "FLOW_load": {
+     "n": 30,
+     "p10": 0.0,
+     "p25": 0.0,
+     "median": 0.0,
+     "p75": 0.306,
+     "p90": 0.694,
+     "p95": 1.162
+    },
+    "k_hedge_stack": {
+     "n": 30,
+     "p10": 0.0,
+     "p25": 0.0,
+     "median": 0.0,
+     "p75": 0.0,
+     "p90": 0.148,
+     "p95": 0.316
+    },
+    "k_disclaimer": {
+     "n": 30,
+     "p10": 0.0,
+     "p25": 0.0,
+     "median": 0.0,
+     "p75": 0.0,
+     "p90": 0.228,
+     "p95": 0.399
+    },
+    "k_near_duplicate": {
+     "n": 30,
+     "p10": 0.0,
+     "p25": 0.0,
+     "median": 0.038,
+     "p75": 0.256,
+     "p90": 0.444,
+     "p95": 1.264
+    },
+    "k_filler": {
+     "n": 30,
+     "p10": 0.244,
+     "p25": 0.479,
+     "median": 0.943,
+     "p75": 1.522,
+     "p90": 1.866,
+     "p95": 2.14
+    },
+    "k_vague_term": {
+     "n": 30,
+     "p10": 2.005,
+     "p25": 2.264,
+     "median": 3.175,
+     "p75": 4.853,
+     "p90": 5.782,
+     "p95": 6.861
+    },
+    "k_orphan_reference": {
+     "n": 30,
+     "p10": 0.244,
+     "p25": 0.483,
+     "median": 1.009,
+     "p75": 1.673,
+     "p90": 2.244,
+     "p95": 2.846
+    },
+    "k_no_connectives": {
+     "n": 30,
+     "p10": 0.0,
+     "p25": 0.0,
+     "median": 0.0,
+     "p75": 0.204,
+     "p90": 0.463,
+     "p95": 0.775
+    },
+    "k_uncited_attribution": {
+     "n": 30,
+     "p10": 0.0,
+     "p25": 0.0,
+     "median": 0.117,
+     "p75": 0.542,
+     "p90": 0.787,
+     "p95": 1.183
+    },
+    "sent_cv": {
+     "n": 30,
+     "p10": 0.506,
+     "p25": 0.53,
+     "median": 0.595,
+     "p75": 0.68,
+     "p90": 0.889,
+     "p95": 1.053
+    },
+    "sent_mean": {
+     "n": 30,
+     "p10": 17.2,
+     "p25": 20.7,
+     "median": 22.3,
+     "p75": 24.0,
+     "p90": 24.9,
+     "p95": 26.1
+    }
+   }
+  }
+ },
+ "primary_stratum": "published",
+ "metrics": {
+  "DEFENSIVE": {
+   "n": 116,
+   "p10": 0.0,
+   "p25": 0.098,
+   "median": 0.243,
+   "p75": 0.425,
+   "p90": 0.774,
+   "p95": 0.972
+  },
+  "DEFENSIVE_load": {
+   "n": 116,
+   "p10": 0.0,
+   "p25": 0.155,
+   "median": 0.385,
+   "p75": 0.683,
+   "p90": 1.197,
+   "p95": 1.459
+  },
+  "REDUNDANT": {
+   "n": 116,
+   "p10": 0.235,
+   "p25": 0.331,
+   "median": 0.679,
+   "p75": 1.119,
+   "p90": 1.716,
+   "p95": 2.067
+  },
+  "REDUNDANT_load": {
+   "n": 116,
+   "p10": 0.146,
+   "p25": 0.267,
+   "median": 0.659,
+   "p75": 1.069,
+   "p90": 1.996,
+   "p95": 2.423
+  },
+  "PRECISION": {
+   "n": 116,
+   "p10": 3.297,
+   "p25": 4.247,
+   "median": 5.432,
+   "p75": 7.151,
+   "p90": 8.496,
+   "p95": 10.101
+  },
+  "PRECISION_load": {
+   "n": 116,
+   "p10": 2.187,
+   "p25": 2.75,
+   "median": 3.61,
+   "p75": 4.452,
+   "p90": 5.81,
+   "p95": 6.212
+  },
+  "FLOW": {
+   "n": 116,
+   "p10": 0.0,
+   "p25": 0.0,
+   "median": 0.0,
+   "p75": 0.158,
+   "p90": 0.301,
+   "p95": 0.452
+  },
+  "FLOW_load": {
+   "n": 116,
+   "p10": 0.0,
+   "p25": 0.0,
+   "median": 0.0,
+   "p75": 0.234,
+   "p90": 0.407,
+   "p95": 0.678
+  },
+  "k_hedge_stack": {
+   "n": 116,
+   "p10": 0.0,
+   "p25": 0.0,
+   "median": 0.0,
+   "p75": 0.065,
+   "p90": 0.094,
+   "p95": 0.114
+  },
+  "k_disclaimer": {
+   "n": 116,
+   "p10": 0.0,
+   "p25": 0.0,
+   "median": 0.0,
+   "p75": 0.154,
+   "p90": 0.279,
+   "p95": 0.339
+  },
+  "k_near_duplicate": {
+   "n": 116,
+   "p10": 0.0,
+   "p25": 0.0,
+   "median": 0.085,
+   "p75": 0.29,
+   "p90": 0.559,
+   "p95": 0.798
+  },
+  "k_filler": {
+   "n": 116,
+   "p10": 0.0,
+   "p25": 0.181,
+   "median": 0.466,
+   "p75": 0.855,
+   "p90": 1.211,
+   "p95": 1.413
+  },
+  "k_vague_term": {
+   "n": 116,
+   "p10": 1.959,
+   "p25": 2.528,
+   "median": 3.654,
+   "p75": 5.325,
+   "p90": 6.475,
+   "p95": 7.455
+  },
+  "k_orphan_reference": {
+   "n": 116,
+   "p10": 0.197,
+   "p25": 0.425,
+   "median": 0.69,
+   "p75": 1.186,
+   "p90": 1.612,
+   "p95": 2.09
+  },
+  "k_no_connectives": {
+   "n": 116,
+   "p10": 0.0,
+   "p25": 0.0,
+   "median": 0.0,
+   "p75": 0.156,
+   "p90": 0.272,
+   "p95": 0.452
+  },
+  "k_uncited_attribution": {
+   "n": 116,
+   "p10": 0.0,
+   "p25": 0.0,
+   "median": 0.091,
+   "p75": 0.242,
+   "p90": 0.537,
+   "p95": 0.648
+  },
+  "sent_cv": {
+   "n": 116,
+   "p10": 0.492,
+   "p25": 0.52,
+   "median": 0.56,
+   "p75": 0.602,
+   "p90": 0.676,
+   "p95": 0.735
+  },
+  "sent_mean": {
+   "n": 116,
+   "p10": 20.7,
+   "p25": 22.1,
+   "median": 23.5,
+   "p75": 25.2,
+   "p90": 28.7,
+   "p95": 30.4
+  }
+ },
+ "reliability": {
+  "gate_on": [
+   "DEFENSIVE",
+   "REDUNDANT",
+   "PRECISION",
+   "sent_cv",
+   "k_hedge_stack",
+   "k_disclaimer",
+   "k_near_duplicate",
+   "k_filler",
+   "k_vague_term",
+   "k_orphan_reference",
+   "k_uncited_attribution"
+  ],
+  "diagnostic_only": [
+   "FLOW",
+   "FLOW_load",
+   "k_no_connectives"
+  ],
+  "why": "Baselines come from pdftotext dumps of published PDFs, where paragraph boundaries are unreliable (two-column extraction merges and splits them). Sentence-scoped metrics are unaffected and are directly comparable to a .docx manuscript. Paragraph-scoped metrics -- FLOW and its no_connectives component -- are measured against a systematically deflated baseline, so a draft can exceed the FLOW p90 without being unusual. Report FLOW findings individually on their merits; do not gate on the rate.",
+  "strata_agreement": "published (2023-26, n=116) and pre_llm (<2022-11, n=30) agree closely on every dimension, which is evidence these lexicons measure academic prose register rather than machine authorship. The two real gaps run the counter-intuitive way: recent papers use *less* filler (0.47 vs 0.94 /1k) and fewer unanchored pronouns (0.69 vs 1.01), consistent with heavier copy-editing rather than with generated text."
+ }
+}

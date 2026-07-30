@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+title: "ClaudeEssaySkill: measured writing guidance for ACM CHI and a calibrated prose verifier"
+message: "If you use the measurements in data/, please cite this repository."
+type: software
+abstract: >-
+  Two Claude Code skills forming a generator/verifier pair for academic manuscripts, with all
+  quantitative guidance calibrated against a census of 4,011 ACM CHI main-conference papers
+  (2024-2026) and a reference corpus of human-written academic prose. Includes the measured
+  false-positive rate of an open-weights AI-text detector on pre-ChatGPT human papers.
+keywords:
+  - academic writing
+  - ACM CHI
+  - AI text detection
+  - calibration
+  - Claude Code skills
+license: CC-BY-4.0

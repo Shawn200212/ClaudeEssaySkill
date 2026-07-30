@@ -1,0 +1,412 @@
+<title>EssayExam — Machine control — LLM-generated HCI manuscript</title>
+<style>
+:root{
+  --bg:#F4F5F2; --surface:#FFFFFF; --surface-2:#FAFBF8;
+  --ink:#15191A; --ink-2:#3B4446; --muted:#67726F;
+  --hair:#DDE1DC; --hair-2:#ECEFE9;
+  --ok:#0F6B57; --ok-soft:#E3EFEA;
+  --warn:#8C6A12; --warn-soft:#F5EEDA;
+  --hot:#B0432A; --hot-soft:#F7E6DF;
+  --band:#0F6B57;
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#111514; --surface:#181D1C; --surface-2:#1D2321;
+    --ink:#E6EBE8; --ink-2:#BAC3BF; --muted:#8A9490;
+    --hair:#262E2C; --hair-2:#1F2725;
+    --ok:#54C3A5; --ok-soft:#12312A; --warn:#CBA83E; --warn-soft:#2B2513;
+    --hot:#E28158; --hot-soft:#331F16; --band:#54C3A5;}
+}
+:root[data-theme="dark"]{--bg:#111514; --surface:#181D1C; --surface-2:#1D2321;
+  --ink:#E6EBE8; --ink-2:#BAC3BF; --muted:#8A9490; --hair:#262E2C; --hair-2:#1F2725;
+  --ok:#54C3A5; --ok-soft:#12312A; --warn:#CBA83E; --warn-soft:#2B2513;
+  --hot:#E28158; --hot-soft:#331F16; --band:#54C3A5;}
+:root[data-theme="light"]{--bg:#F4F5F2; --surface:#FFFFFF; --surface-2:#FAFBF8;
+  --ink:#15191A; --ink-2:#3B4446; --muted:#67726F; --hair:#DDE1DC; --hair-2:#ECEFE9;
+  --ok:#0F6B57; --ok-soft:#E3EFEA; --warn:#8C6A12; --warn-soft:#F5EEDA;
+  --hot:#B0432A; --hot-soft:#F7E6DF; --band:#0F6B57;}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.mono{font-family:ui-monospace,"SF Mono","Cascadia Mono",Menlo,Consolas,monospace}
+.num{font-variant-numeric:tabular-nums}
+.wrap{max-width:1140px;margin:0 auto;padding:0 22px}
+.eyebrow{font-family:ui-monospace,monospace;font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--muted)}
+h1{font-size:clamp(26px,4vw,42px);line-height:1.08;letter-spacing:-.024em;font-weight:750;
+  margin:12px 0 0;text-wrap:balance;max-width:22ch}
+.dek{margin:14px 0 0;max-width:64ch;color:var(--ink-2);font-size:16.5px}
+header{background:var(--surface-2);border-bottom:1px solid var(--hair);padding:48px 0 34px}
+
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--hair);
+  border:1px solid var(--hair);border-radius:3px;overflow:hidden;margin-top:28px}
+.kpi{background:var(--surface);padding:16px 16px 14px}
+.kpi .k{font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--muted)}
+.kpi .v{font-size:clamp(21px,3vw,31px);font-weight:730;letter-spacing:-.02em;margin-top:7px;line-height:1}
+.kpi .s{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.42}
+.v.ok{color:var(--ok)} .v.hot{color:var(--hot)} .v.warn{color:var(--warn)}
+
+section{padding:42px 0;border-bottom:1px solid var(--hair)}
+section:last-of-type{border-bottom:0}
+h2{font-size:clamp(19px,2.4vw,25px);letter-spacing:-.016em;font-weight:700;margin:0 0 8px}
+.sub{color:var(--ink-2);max-width:72ch;margin:0 0 22px;font-size:15px}
+
+.plot{background:var(--surface);border:1px solid var(--hair);border-radius:3px;padding:16px 16px 8px}
+svg{display:block;width:100%;height:auto;overflow:visible}
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:12px;font-size:12.5px;color:var(--muted)}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+.legend .ln{display:inline-block;width:14px;height:0;border-top:2px solid;margin-right:6px;vertical-align:3px}
+
+.tscroll{overflow-x:auto;border:1px solid var(--hair);border-radius:3px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--hair-2);vertical-align:top}
+th{font-family:ui-monospace,monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);font-weight:600;background:var(--surface-2);white-space:nowrap}
+tbody tr:last-child td{border-bottom:0}
+td.r,th.r{text-align:right;font-variant-numeric:tabular-nums}
+.pill{display:inline-block;font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.06em;
+  text-transform:uppercase;padding:2px 6px;border-radius:2px;font-weight:600;white-space:nowrap}
+.p-ok{background:var(--ok-soft);color:var(--ok)}
+.p-warn{background:var(--warn-soft);color:var(--warn)}
+.p-hot{background:var(--hot-soft);color:var(--hot)}
+blockquote{margin:6px 0 0;padding-left:11px;border-left:2px solid var(--hair);
+  color:var(--ink-2);font-size:13.5px}
+.verdict{background:var(--surface);border:1px solid var(--hair);border-left:3px solid var(--ok);
+  border-radius:3px;padding:18px 20px;margin-bottom:22px}
+.verdict h3{margin:0 0 8px;font-size:17px}
+.verdict p{margin:0 0 8px;color:var(--ink-2);max-width:74ch;font-size:14.5px}
+.verdict.hot{border-left-color:var(--hot)}
+.verdict.warn{border-left-color:var(--warn)}
+footer{padding:34px 0 60px;color:var(--muted);font-size:12.5px}
+footer p{max-width:76ch;margin:0 0 9px}
+@media (max-width:820px){.kpis{grid-template-columns:repeat(2,1fr)}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<header>
+  <div class="wrap">
+    <div class="eyebrow">EssayExam · text audit</div>
+    <h1 id="h-title"></h1>
+    <p class="dek" id="h-dek"></p>
+    <div class="kpis" id="kpis"></div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section>
+    <h2>Machine-likeness across the manuscript</h2>
+    <p class="sub" id="plot-sub"></p>
+    <div class="plot">
+      <div id="chart"></div>
+      <div class="legend" id="legend"></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Where the curve runs highest</h2>
+    <p class="sub">The most machine-like windows, quoted so the judgement can be checked against
+      the actual prose. A high window is a pointer to a passage worth rereading, not a verdict.</p>
+    <div id="peaks"></div>
+  </section>
+
+  <section>
+    <h2>Prose dimensions</h2>
+    <p class="sub">Deterministic checks, independent of the detector. These are the ones with a
+      defined fix.</p>
+    <div class="tscroll" style="margin-bottom:20px">
+      <table><thead><tr><th>Dimension</th><th class="r">Findings</th><th class="r">Per 1k words</th>
+        <th>What it measures</th></tr></thead><tbody id="dimtable"></tbody></table>
+    </div>
+    <div class="tscroll" style="max-height:520px;overflow-y:auto">
+      <table><thead><tr><th>Dim</th><th>Kind</th><th class="r">Word</th><th>Section</th>
+        <th>Detail &amp; fix</th></tr></thead><tbody id="findtable"></tbody></table>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap">
+  <p id="foot-method"></p>
+  <p><strong>What this is not.</strong> No detector can establish authorship, and none is used in
+  ACM or CHI review — the requirement there is <em>disclosure</em>, not a score. These numbers are for
+  author-side calibration: they point at passages whose phrasing is statistically unusual against
+  published prose, which is a reason to reread them, not evidence about who wrote them. Detectors also
+  produce false positives on human academic writing, disproportionately for non-native English writers.
+  Never quote a figure from this page as an "AI percentage" of the manuscript.</p>
+</footer>
+
+<script>
+const D = {"title": "Machine control — LLM-generated HCI manuscript", "file": "demo_machine.md", "prose_words": 1651, "sentences": 107, "window": {"words": 160, "stride": 40}, "machine": {"weighted_mean": 0.99995, "max": 0.99999, "median": 0.99998, "p75": 0.99999, "p90": 0.99999, "share_over_0_5": 100.0, "share_over_0_9": 100.0, "n_windows": 39, "max_percentile_vs_human": 100.0, "mean_percentile_vs_human": 100.0, "windows_over_human_p95": 39, "windows_over_human_p99": 39, "pct_windows_over_human_p95": 100.0}, "curve": [{"i": 0, "w_start": 0, "w_end": 160, "p_ai": 0.99923, "section": "(front matter)", "pct_vs_human": 99.87}, {"i": 1, "w_start": 40, "w_end": 200, "p_ai": 0.99995, "section": "(front matter)", "pct_vs_human": 100.0}, {"i": 2, "w_start": 80, "w_end": 240, "p_ai": 0.99999, "section": "(front matter)", "text": "interfaces have emerged as a promising avenue for enhancing user engagement across a wide variety of digital contexts. However, despite the growing body of literature in this space, there remains a significant gap in our understanding of how users actually experience adaptivity in situ. In this paper, we present a comprehensive framework that seeks to shed light on the multifaceted nature of engagement with adaptive systems. Our approach leverages a mixed-methods methodology, combining quantitative telemetry with rich qualitative insights, in order to delve into the nuances of this complex phenomenon. Our findings underscore the importance of considering both individual differences and contextual factors when designing adaptive experiences. We believe these results pave the way for future research and offer meaningful implications for practitioners seeking to build more effective and intuitive systems. Introduction The proliferation of digital technologies has fundamentally transformed the way people interact with information systems. As these systems become increasingly sophisticated, there is a growing recognition that static,", "pct_vs_human": 100.0}, {"i": 3, "w_start": 120, "w_end": 280, "p_ai": 0.99999, "section": "(front matter)", "text": "experience adaptivity in situ. In this paper, we present a comprehensive framework that seeks to shed light on the multifaceted nature of engagement with adaptive systems. Our approach leverages a mixed-methods methodology, combining quantitative telemetry with rich qualitative insights, in order to delve into the nuances of this complex phenomenon. Our findings underscore the importance of considering both individual differences and contextual factors when designing adaptive experiences. We believe these results pave the way for future research and offer meaningful implications for practitioners seeking to build more effective and intuitive systems. Introduction The proliferation of digital technologies has fundamentally transformed the way people interact with information systems. As these systems become increasingly sophisticated, there is a growing recognition that static, one-size-fits-all interfaces may no longer be sufficient to meet the diverse needs of contemporary users. Adaptive interfaces, which dynamically adjust their presentation and behavior based on user characteristics and contextual signals, represent a compelling response to this challenge. It is", "pct_vs_human": 100.0}, {"i": 4, "w_start": 160, "w_end": 320, "p_ai": 0.99999, "section": "(front matter)", "text": "order to delve into the nuances of this complex phenomenon. Our findings underscore the importance of considering both individual differences and contextual factors when designing adaptive experiences. We believe these results pave the way for future research and offer meaningful implications for practitioners seeking to build more effective and intuitive systems. Introduction The proliferation of digital technologies has fundamentally transformed the way people interact with information systems. As these systems become increasingly sophisticated, there is a growing recognition that static, one-size-fits-all interfaces may no longer be sufficient to meet the diverse needs of contemporary users. Adaptive interfaces, which dynamically adjust their presentation and behavior based on user characteristics and contextual signals, represent a compelling response to this challenge. It is important to note that the concept of adaptivity is not new. Prior work has explored various dimensions of this design space over several decades. However, the advent of increasingly powerful machine learning techniques has substantially expanded what is possible, enabling", "pct_vs_human": 100.0}, {"i": 5, "w_start": 200, "w_end": 360, "p_ai": 0.99999, "section": "(front matter)", "text": "implications for practitioners seeking to build more effective and intuitive systems. Introduction The proliferation of digital technologies has fundamentally transformed the way people interact with information systems. As these systems become increasingly sophisticated, there is a growing recognition that static, one-size-fits-all interfaces may no longer be sufficient to meet the diverse needs of contemporary users. Adaptive interfaces, which dynamically adjust their presentation and behavior based on user characteristics and contextual signals, represent a compelling response to this challenge. It is important to note that the concept of adaptivity is not new. Prior work has explored various dimensions of this design space over several decades. However, the advent of increasingly powerful machine learning techniques has substantially expanded what is possible, enabling systems to respond to user behavior in ways that were previously infeasible. This shift raises a number of important questions that the field has yet to adequately address. Some researchers argue that adaptivity can significantly improve task performance and user", "pct_vs_human": 100.0}, {"i": 6, "w_start": 240, "w_end": 400, "p_ai": 0.99998, "section": "(front matter)", "text": "one-size-fits-all interfaces may no longer be sufficient to meet the diverse needs of contemporary users. Adaptive interfaces, which dynamically adjust their presentation and behavior based on user characteristics and contextual signals, represent a compelling response to this challenge. It is important to note that the concept of adaptivity is not new. Prior work has explored various dimensions of this design space over several decades. However, the advent of increasingly powerful machine learning techniques has substantially expanded what is possible, enabling systems to respond to user behavior in ways that were previously infeasible. This shift raises a number of important questions that the field has yet to adequately address. Some researchers argue that adaptivity can significantly improve task performance and user satisfaction. Others have suggested that unpredictable interface changes may potentially undermine users' sense of control and could possibly lead to frustration. This tension between personalization and predictability represents a crucial challenge for the design community. It should be noted that", "pct_vs_human": 100.0}, {"i": 7, "w_start": 280, "w_end": 440, "p_ai": 0.99997, "section": "(front matter)", "pct_vs_human": 100.0}, {"i": 8, "w_start": 320, "w_end": 480, "p_ai": 0.99998, "section": "(front matter)", "text": "systems to respond to user behavior in ways that were previously infeasible. This shift raises a number of important questions that the field has yet to adequately address. Some researchers argue that adaptivity can significantly improve task performance and user satisfaction. Others have suggested that unpredictable interface changes may potentially undermine users' sense of control and could possibly lead to frustration. This tension between personalization and predictability represents a crucial challenge for the design community. It should be noted that resolving this tension is likely to require careful consideration of multiple competing factors. In this paper, we seek to address this gap by presenting a holistic framework for understanding engagement with adaptive interfaces. Our work makes several key contributions. First, we synthesize the existing literature to identify the core dimensions along which adaptive systems vary. Second, we present findings from an empirical investigation that explores how users experience these systems in practice. Third, we articulate a set of design implications", "pct_vs_human": 100.0}, {"i": 9, "w_start": 360, "w_end": 520, "p_ai": 0.99998, "section": "(front matter)", "text": "satisfaction. Others have suggested that unpredictable interface changes may potentially undermine users' sense of control and could possibly lead to frustration. This tension between personalization and predictability represents a crucial challenge for the design community. It should be noted that resolving this tension is likely to require careful consideration of multiple competing factors. In this paper, we seek to address this gap by presenting a holistic framework for understanding engagement with adaptive interfaces. Our work makes several key contributions. First, we synthesize the existing literature to identify the core dimensions along which adaptive systems vary. Second, we present findings from an empirical investigation that explores how users experience these systems in practice. Third, we articulate a set of design implications that we believe will be valuable for practitioners and researchers alike. The remainder of this paper is organized as follows. We begin by reviewing the relevant literature. We then describe our methodology in detail. Following this, we present our findings,", "pct_vs_human": 100.0}, {"i": 10, "w_start": 400, "w_end": 560, "p_ai": 0.99998, "section": "(front matter)", "text": "resolving this tension is likely to require careful consideration of multiple competing factors. In this paper, we seek to address this gap by presenting a holistic framework for understanding engagement with adaptive interfaces. Our work makes several key contributions. First, we synthesize the existing literature to identify the core dimensions along which adaptive systems vary. Second, we present findings from an empirical investigation that explores how users experience these systems in practice. Third, we articulate a set of design implications that we believe will be valuable for practitioners and researchers alike. The remainder of this paper is organized as follows. We begin by reviewing the relevant literature. We then describe our methodology in detail. Following this, we present our findings, organized around the key themes that emerged from our analysis. Finally, we discuss the broader implications of our work and outline promising directions for future research. Related Work A substantial body of research has examined adaptive systems from a variety", "pct_vs_human": 100.0}, {"i": 11, "w_start": 440, "w_end": 600, "p_ai": 0.99998, "section": "(front matter)", "text": "we synthesize the existing literature to identify the core dimensions along which adaptive systems vary. Second, we present findings from an empirical investigation that explores how users experience these systems in practice. Third, we articulate a set of design implications that we believe will be valuable for practitioners and researchers alike. The remainder of this paper is organized as follows. We begin by reviewing the relevant literature. We then describe our methodology in detail. Following this, we present our findings, organized around the key themes that emerged from our analysis. Finally, we discuss the broader implications of our work and outline promising directions for future research. Related Work A substantial body of research has examined adaptive systems from a variety of perspectives. Early work in this area focused primarily on technical mechanisms for personalization. More recent scholarship has increasingly emphasized the user experience dimensions of adaptivity. Several studies have investigated the relationship between adaptivity and perceived control. This line of", "pct_vs_human": 100.0}, {"i": 12, "w_start": 480, "w_end": 640, "p_ai": 0.99998, "section": "(front matter)", "text": "that we believe will be valuable for practitioners and researchers alike. The remainder of this paper is organized as follows. We begin by reviewing the relevant literature. We then describe our methodology in detail. Following this, we present our findings, organized around the key themes that emerged from our analysis. Finally, we discuss the broader implications of our work and outline promising directions for future research. Related Work A substantial body of research has examined adaptive systems from a variety of perspectives. Early work in this area focused primarily on technical mechanisms for personalization. More recent scholarship has increasingly emphasized the user experience dimensions of adaptivity. Several studies have investigated the relationship between adaptivity and perceived control. This line of work suggests that users may experience a diminished sense of agency when systems make changes without explicit user input. However, the literature remains somewhat divided on the magnitude and importance of this effect. Some scholars have argued that the benefits", "pct_vs_human": 100.0}, {"i": 13, "w_start": 520, "w_end": 680, "p_ai": 0.99998, "section": "(front matter)", "text": "organized around the key themes that emerged from our analysis. Finally, we discuss the broader implications of our work and outline promising directions for future research. Related Work A substantial body of research has examined adaptive systems from a variety of perspectives. Early work in this area focused primarily on technical mechanisms for personalization. More recent scholarship has increasingly emphasized the user experience dimensions of adaptivity. Several studies have investigated the relationship between adaptivity and perceived control. This line of work suggests that users may experience a diminished sense of agency when systems make changes without explicit user input. However, the literature remains somewhat divided on the magnitude and importance of this effect. Some scholars have argued that the benefits of personalization outweigh these concerns, while others maintain that transparency mechanisms are essential. Another important strand of research has examined the role of individual differences in shaping responses to adaptive systems. Prior studies have identified a number of factors that", "pct_vs_human": 100.0}, {"i": 14, "w_start": 560, "w_end": 720, "p_ai": 0.99998, "section": "(front matter)", "text": "of perspectives. Early work in this area focused primarily on technical mechanisms for personalization. More recent scholarship has increasingly emphasized the user experience dimensions of adaptivity. Several studies have investigated the relationship between adaptivity and perceived control. This line of work suggests that users may experience a diminished sense of agency when systems make changes without explicit user input. However, the literature remains somewhat divided on the magnitude and importance of this effect. Some scholars have argued that the benefits of personalization outweigh these concerns, while others maintain that transparency mechanisms are essential. Another important strand of research has examined the role of individual differences in shaping responses to adaptive systems. Prior studies have identified a number of factors that may moderate user reactions, including technical expertise, prior experience with similar systems, and various personality characteristics. It is worth noting that this literature is still relatively nascent, and further research is needed to establish robust findings. A third relevant body", "pct_vs_human": 100.0}, {"i": 15, "w_start": 600, "w_end": 760, "p_ai": 0.99994, "section": "(front matter)", "pct_vs_human": 100.0}, {"i": 16, "w_start": 640, "w_end": 800, "p_ai": 0.99996, "section": "(front matter)", "pct_vs_human": 100.0}, {"i": 17, "w_start": 680, "w_end": 840, "p_ai": 0.99997, "section": "(front matter)", "pct_vs_human": 100.0}, {"i": 18, "w_start": 720, "w_end": 880, "p_ai": 0.99998, "section": "(front matter)", "text": "of work concerns the measurement of engagement itself. Researchers have proposed numerous frameworks and instruments for capturing this construct. However, there is as yet no consensus regarding the most appropriate operationalization, and different studies have adopted markedly different approaches. This heterogeneity presents a significant challenge for synthesizing findings across the literature. While each of these strands offers valuable insights, they have largely developed in isolation from one another. Our work seeks to bridge these perspectives by offering an integrative framework that accounts for technical, experiential, and individual dimensions simultaneously. Methodology We employed a mixed-methods approach in order to develop a comprehensive understanding of our research questions. This methodology was chosen because it allows for the triangulation of findings across multiple data sources, thereby enhancing the robustness of our conclusions. Participants were recruited through a combination of institutional mailing lists and social media channels. A total of forty-two individuals took part in the study. Participants ranged in age and represented a", "pct_vs_human": 100.0}, {"i": 19, "w_start": 760, "w_end": 920, "p_ai": 0.99999, "section": "(front matter)", "text": "heterogeneity presents a significant challenge for synthesizing findings across the literature. While each of these strands offers valuable insights, they have largely developed in isolation from one another. Our work seeks to bridge these perspectives by offering an integrative framework that accounts for technical, experiential, and individual dimensions simultaneously. Methodology We employed a mixed-methods approach in order to develop a comprehensive understanding of our research questions. This methodology was chosen because it allows for the triangulation of findings across multiple data sources, thereby enhancing the robustness of our conclusions. Participants were recruited through a combination of institutional mailing lists and social media channels. A total of forty-two individuals took part in the study. Participants ranged in age and represented a diverse array of professional backgrounds and technical expertise levels. All participants provided informed consent prior to their participation, and the study protocol was reviewed and approved by our institutional review board. The study consisted of two phases. In the first", "pct_vs_human": 100.0}, {"i": 20, "w_start": 800, "w_end": 960, "p_ai": 0.99998, "section": "(front matter)", "pct_vs_human": 100.0}, {"i": 21, "w_start": 840, "w_end": 1000, "p_ai": 0.99982, "section": "(front matter)", "pct_vs_human": 100.0}, {"i": 22, "w_start": 880, "w_end": 1040, "p_ai": 0.99985, "section": "(front matter)", "pct_vs_human": 100.0}, {"i": 23, "w_start": 920, "w_end": 1080, "p_ai": 0.99996, "section": "(front matter)", "pct_vs_human": 100.0}, {"i": 24, "w_start": 960, "w_end": 1120, "p_ai": 0.99997, "section": "(front matter)", "pct_vs_human": 100.0}, {"i": 25, "w_start": 1000, "w_end": 1160, "p_ai": 0.99998, "section": "(front matter)", "pct_vs_human": 100.0}, {"i": 26, "w_start": 1040, "w_end": 1200, "p_ai": 0.99998, "section": "(front matter)", "pct_vs_human": 100.0}, {"i": 27, "w_start": 1080, "w_end": 1240, "p_ai": 0.99999, "section": "(front matter)", "text": "organize our findings around three principal themes. The first theme concerns the tension between efficiency and predictability. Many participants reported that adaptive features helped them accomplish tasks more quickly. At the same time, a substantial number expressed frustration when the interface changed in ways they did not anticipate. This finding underscores the importance of designing adaptivity that is responsive without being disorienting. The second theme relates to the role of mental models. Participants who developed accurate mental models of the system's adaptive behavior tended to report more positive experiences overall. Conversely, those who struggled to understand why the system behaved as it did frequently expressed confusion and, in some cases, distrust. These results highlight the critical importance of legibility in adaptive system design. The third theme concerns individual variation. Our data reveal considerable heterogeneity in how participants responded to adaptivity. Some embraced the technology enthusiastically, while others remained skeptical throughout the study period. This variation appeared to be associated with", "pct_vs_human": 100.0}, {"i": 28, "w_start": 1120, "w_end": 1280, "p_ai": 0.99999, "section": "(front matter)", "text": "interface changed in ways they did not anticipate. This finding underscores the importance of designing adaptivity that is responsive without being disorienting. The second theme relates to the role of mental models. Participants who developed accurate mental models of the system's adaptive behavior tended to report more positive experiences overall. Conversely, those who struggled to understand why the system behaved as it did frequently expressed confusion and, in some cases, distrust. These results highlight the critical importance of legibility in adaptive system design. The third theme concerns individual variation. Our data reveal considerable heterogeneity in how participants responded to adaptivity. Some embraced the technology enthusiastically, while others remained skeptical throughout the study period. This variation appeared to be associated with a range of factors, though the precise mechanisms remain unclear and warrant further investigation. Taken together, these findings suggest that engagement with adaptive interfaces is shaped by a complex interplay of system characteristics, user characteristics, and contextual factors. No single", "pct_vs_human": 100.0}, {"i": 29, "w_start": 1160, "w_end": 1320, "p_ai": 0.99999, "section": "(front matter)", "text": "system's adaptive behavior tended to report more positive experiences overall. Conversely, those who struggled to understand why the system behaved as it did frequently expressed confusion and, in some cases, distrust. These results highlight the critical importance of legibility in adaptive system design. The third theme concerns individual variation. Our data reveal considerable heterogeneity in how participants responded to adaptivity. Some embraced the technology enthusiastically, while others remained skeptical throughout the study period. This variation appeared to be associated with a range of factors, though the precise mechanisms remain unclear and warrant further investigation. Taken together, these findings suggest that engagement with adaptive interfaces is shaped by a complex interplay of system characteristics, user characteristics, and contextual factors. No single dimension appears sufficient to explain the patterns we observed. Discussion Our findings have several important implications for both theory and practice. From a theoretical standpoint, our work contributes to a growing recognition that adaptivity cannot be understood in purely technical", "pct_vs_human": 100.0}, {"i": 30, "w_start": 1200, "w_end": 1360, "p_ai": 0.99999, "section": "(front matter)", "text": "adaptive system design. The third theme concerns individual variation. Our data reveal considerable heterogeneity in how participants responded to adaptivity. Some embraced the technology enthusiastically, while others remained skeptical throughout the study period. This variation appeared to be associated with a range of factors, though the precise mechanisms remain unclear and warrant further investigation. Taken together, these findings suggest that engagement with adaptive interfaces is shaped by a complex interplay of system characteristics, user characteristics, and contextual factors. No single dimension appears sufficient to explain the patterns we observed. Discussion Our findings have several important implications for both theory and practice. From a theoretical standpoint, our work contributes to a growing recognition that adaptivity cannot be understood in purely technical terms. Rather, it must be conceptualized as a socio-technical phenomenon that is fundamentally shaped by the meanings users attribute to system behavior. From a practical standpoint, our results offer several actionable insights for designers. First, our findings suggest that transparency", "pct_vs_human": 100.0}, {"i": 31, "w_start": 1240, "w_end": 1400, "p_ai": 0.99999, "section": "(front matter)", "text": "a range of factors, though the precise mechanisms remain unclear and warrant further investigation. Taken together, these findings suggest that engagement with adaptive interfaces is shaped by a complex interplay of system characteristics, user characteristics, and contextual factors. No single dimension appears sufficient to explain the patterns we observed. Discussion Our findings have several important implications for both theory and practice. From a theoretical standpoint, our work contributes to a growing recognition that adaptivity cannot be understood in purely technical terms. Rather, it must be conceptualized as a socio-technical phenomenon that is fundamentally shaped by the meanings users attribute to system behavior. From a practical standpoint, our results offer several actionable insights for designers. First, our findings suggest that transparency mechanisms may play a crucial role in supporting positive user experiences. Second, our work highlights the importance of allowing users to exercise meaningful control over adaptive features. Third, our results underscore the need to accommodate individual differences rather than assuming", "pct_vs_human": 100.0}, {"i": 32, "w_start": 1280, "w_end": 1440, "p_ai": 0.99999, "section": "(front matter)", "text": "dimension appears sufficient to explain the patterns we observed. Discussion Our findings have several important implications for both theory and practice. From a theoretical standpoint, our work contributes to a growing recognition that adaptivity cannot be understood in purely technical terms. Rather, it must be conceptualized as a socio-technical phenomenon that is fundamentally shaped by the meanings users attribute to system behavior. From a practical standpoint, our results offer several actionable insights for designers. First, our findings suggest that transparency mechanisms may play a crucial role in supporting positive user experiences. Second, our work highlights the importance of allowing users to exercise meaningful control over adaptive features. Third, our results underscore the need to accommodate individual differences rather than assuming a homogeneous user population. It is important to note that our study has a number of limitations. Our sample, while diverse, was drawn from a specific population and may not generalize to other contexts. The relatively short duration of the", "pct_vs_human": 100.0}, {"i": 33, "w_start": 1320, "w_end": 1480, "p_ai": 0.99998, "section": "(front matter)", "pct_vs_human": 100.0}, {"i": 34, "w_start": 1360, "w_end": 1520, "p_ai": 0.99999, "section": "(front matter)", "text": "mechanisms may play a crucial role in supporting positive user experiences. Second, our work highlights the importance of allowing users to exercise meaningful control over adaptive features. Third, our results underscore the need to accommodate individual differences rather than assuming a homogeneous user population. It is important to note that our study has a number of limitations. Our sample, while diverse, was drawn from a specific population and may not generalize to other contexts. The relatively short duration of the study period means that we were unable to capture longer-term patterns of adaptation. Additionally, our reliance on self-report data introduces the possibility of various response biases. Future research should seek to address these limitations through larger-scale, longitudinal investigations. Despite these limitations, we believe our work makes a meaningful contribution to the field. By offering an integrative framework that bridges previously disconnected strands of research, we hope to provide a foundation upon which future scholarship can build. Conclusion In this paper,", "pct_vs_human": 100.0}, {"i": 35, "w_start": 1400, "w_end": 1560, "p_ai": 0.99999, "section": "(front matter)", "text": "a homogeneous user population. It is important to note that our study has a number of limitations. Our sample, while diverse, was drawn from a specific population and may not generalize to other contexts. The relatively short duration of the study period means that we were unable to capture longer-term patterns of adaptation. Additionally, our reliance on self-report data introduces the possibility of various response biases. Future research should seek to address these limitations through larger-scale, longitudinal investigations. Despite these limitations, we believe our work makes a meaningful contribution to the field. By offering an integrative framework that bridges previously disconnected strands of research, we hope to provide a foundation upon which future scholarship can build. Conclusion In this paper, we have presented a holistic framework for understanding user engagement with adaptive interfaces. Drawing on a mixed-methods empirical investigation, we identified three key themes that characterize how users experience adaptivity in practice. Our findings underscore the multifaceted nature of this", "pct_vs_human": 100.0}, {"i": 36, "w_start": 1440, "w_end": 1600, "p_ai": 0.99999, "section": "(front matter)", "text": "study period means that we were unable to capture longer-term patterns of adaptation. Additionally, our reliance on self-report data introduces the possibility of various response biases. Future research should seek to address these limitations through larger-scale, longitudinal investigations. Despite these limitations, we believe our work makes a meaningful contribution to the field. By offering an integrative framework that bridges previously disconnected strands of research, we hope to provide a foundation upon which future scholarship can build. Conclusion In this paper, we have presented a holistic framework for understanding user engagement with adaptive interfaces. Drawing on a mixed-methods empirical investigation, we identified three key themes that characterize how users experience adaptivity in practice. Our findings underscore the multifaceted nature of this phenomenon and highlight the importance of considering technical, experiential, and individual dimensions in concert. We believe this work opens up a number of promising avenues for future research. In particular, further investigation is needed to elucidate the mechanisms underlying individual", "pct_vs_human": 100.0}, {"i": 37, "w_start": 1480, "w_end": 1640, "p_ai": 0.99999, "section": "(front matter)", "text": "limitations, we believe our work makes a meaningful contribution to the field. By offering an integrative framework that bridges previously disconnected strands of research, we hope to provide a foundation upon which future scholarship can build. Conclusion In this paper, we have presented a holistic framework for understanding user engagement with adaptive interfaces. Drawing on a mixed-methods empirical investigation, we identified three key themes that characterize how users experience adaptivity in practice. Our findings underscore the multifaceted nature of this phenomenon and highlight the importance of considering technical, experiential, and individual dimensions in concert. We believe this work opens up a number of promising avenues for future research. In particular, further investigation is needed to elucidate the mechanisms underlying individual variation in responses to adaptivity. We also see considerable value in extending this framework to other domains and contexts. Ultimately, we hope that the perspective advanced here will help pave the way toward adaptive systems that are not only more", "pct_vs_human": 100.0}, {"i": 38, "w_start": 1520, "w_end": 1651, "p_ai": 0.99999, "section": "(front matter)", "text": "we have presented a holistic framework for understanding user engagement with adaptive interfaces. Drawing on a mixed-methods empirical investigation, we identified three key themes that characterize how users experience adaptivity in practice. Our findings underscore the multifaceted nature of this phenomenon and highlight the importance of considering technical, experiential, and individual dimensions in concert. We believe this work opens up a number of promising avenues for future research. In particular, further investigation is needed to elucidate the mechanisms underlying individual variation in responses to adaptivity. We also see considerable value in extending this framework to other domains and contexts. Ultimately, we hope that the perspective advanced here will help pave the way toward adaptive systems that are not only more effective but also more intelligible and more respectful of user agency.", "pct_vs_human": 100.0}], "style": {"fingerprint": {"file": "demo_machine.md", "prose_words": 1585, "fingerprint_index": 16.0, "human_baseline": {"median": 0.6, "p90": 8.3, "n": 597}, "components": {"emdash_per_1k": 0.0, "sentence_len_CV": 62.6, "hollow_per_1k": 21.8, "hedge_stack_per_1k": 0.0, "hype_per_1k": 0.0, "not_x_but_y_per_1k": 0.0, "rule_of_three_per_1k": 0.0}, "raw": {"words": 1585, "emdash_per_1k": 0.63, "sentence_len_CV": 0.38, "hollow_per_1k": 3.15, "hedge_stack_per_1k": 0.63, "hype_per_1k": 0.63, "not_x_but_y_per_1k": 0.0, "rule_of_three_per_1k": 1.26, "semicolon_per_1k": 0.0, "colon_per_1k": 0.0}}, "rhythm": {"n": 107, "mean": 15.4, "cv": 0.419}}, "dimensions": {"DEFENSIVE": {"n": 10, "per_1k": 6.06, "weighted_load_per_1k": 9.09, "by_kind": {"disclaimer": 5, "uncited_attribution": 5}, "human_median_per_1k": 0.243, "human_p90_per_1k": 0.774, "band_position": "above p95", "gated": true}, "REDUNDANT": {"n": 2, "per_1k": 1.21, "weighted_load_per_1k": 0.61, "by_kind": {"filler": 2}, "human_median_per_1k": 0.679, "human_p90_per_1k": 1.716, "band_position": "p75–p90", "gated": true}, "PRECISION": {"n": 32, "per_1k": 19.38, "weighted_load_per_1k": 12.72, "by_kind": {"orphan_reference": 5, "vague_term": 27}, "human_median_per_1k": 5.432, "human_p90_per_1k": 8.496, "band_position": "above p95", "gated": true}, "FLOW": {"n": 4, "per_1k": 2.42, "weighted_load_per_1k": 3.63, "by_kind": {"no_connectives": 4}, "human_median_per_1k": 0.0, "human_p90_per_1k": 0.301, "band_position": "above p95", "gated": false}}, "findings": [{"kind": "vague_term", "severity": "low", "w": 0, "section": "(front matter)", "text": "Toward a Holistic Framework for Understanding User Engagement with Adaptive Interfaces", "detail": "\"Holistic\"", "fix": "name what it includes", "dim": "PRECISION"}, {"kind": "no_connectives", "severity": "medium", "w": 11, "section": "(front matter)", "text": "*Machine-generated control document.", "detail": "65-word argumentative paragraph, 4 sentences, no connective", "fix": "Sentences are adjacent but not related. Name the relation (contrast, cause, example) at least once.", "dim": "FLOW"}, {"kind": "orphan_reference", "severity": "medium", "w": 47, "section": "(front matter)", "text": "It is deliberately written in the\nregister that generated academic prose tends toward — it is not a real paper, and its\nclaims, citations and findings are fabricated.*\nAbstract", "detail": "sentence opens with an unanchored pronoun", "fix": "Attach a noun: \"This constraint...\", \"This result...\".", "dim": "PRECISION"}, {"kind": "vague_term", "severity": "low", "w": 98, "section": "(front matter)", "text": "However, despite the growing body of\nliterature in this space, there remains a significant gap in our understanding of how users\nactually experience adaptivity in situ.", "detail": "\"significant\"", "fix": "statistically significant, or large? give the number", "dim": "PRECISION"}, {"kind": "vague_term", "severity": "low", "w": 124, "section": "(front matter)", "text": "In this paper, we present a comprehensive framework\nthat seeks to shed light on the multifaceted nature of engagement with adaptive systems.", "detail": "\"shed light on\"", "fix": "shows", "dim": "PRECISION"}, {"kind": "filler", "severity": "low", "w": 146, "section": "(front matter)", "text": "Our\napproach leverages a mixed-methods methodology, combining quantitative telemetry with rich\nqualitative insights, in order to delve into the nuances of this complex phenomenon.", "detail": "\"in order to\"", "fix": "-> to", "dim": "REDUNDANT"}, {"kind": "vague_term", "severity": "low", "w": 146, "section": "(front matter)", "text": "Our\napproach leverages a mixed-methods methodology, combining quantitative telemetry with rich\nqualitative insights, in order to delve into the nuances of this complex phenomenon.", "detail": "\"complex\"", "fix": "complex in what respect", "dim": "PRECISION"}, {"kind": "vague_term", "severity": "low", "w": 170, "section": "(front matter)", "text": "Our\nfindings underscore the importance of considering both individual differences and contextual\nfactors when designing adaptive experiences.", "detail": "\"underscore\"", "fix": "shows", "dim": "PRECISION"}, {"kind": "vague_term", "severity": "low", "w": 187, "section": "(front matter)", "text": "We believe these results pave the way for future\nresearch and offer meaningful implications for practitioners seeking to build more effective\nand intuitive systems.", "detail": "\"meaningful\"", "fix": "meaningful on which measure", "dim": "PRECISION"}, {"kind": "no_connectives", "severity": "medium", "w": 212, "section": "(front matter)", "text": "The proliferation of digital technologies has fundamentally transformed the way people\ninteract with information systems.", "detail": "66-word argumentative paragraph, 3 sentences, no connective", "fix": "Sentences are adjacent but not related. Name the relation (contrast, cause, example) at least once.", "dim": "FLOW"}, {"kind": "disclaimer", "severity": "medium", "w": 278, "section": "(front matter)", "text": "It is important to note that the concept of adaptivity is not new.", "detail": "\"It is important to note\"", "fix": "Announces significance instead of demonstrating it. State the point directly.", "dim": "DEFENSIVE"}, {"kind": "orphan_reference", "severity": "medium", "w": 278, "section": "(front matter)", "text": "It is important to note that the concept of adaptivity is not new.", "detail": "sentence opens with an unanchored pronoun", "fix": "Attach a noun: \"This constraint...\", \"This result...\".", "dim": "PRECISION"}, {"kind": "uncited_attribution", "severity": "medium", "w": 291, "section": "(front matter)", "text": "Prior work has explored\nvarious dimensions of this design space over several decades.", "detail": "\"Prior work\" with no citation", "fix": "Name the works, or drop the appeal to a consensus you are not citing.", "dim": "DEFENSIVE"}, {"kind": "vague_term", "severity": "low", "w": 291, "section": "(front matter)", "text": "Prior work has explored\nvarious dimensions of this design space over several decades.", "detail": "\"various\"", "fix": "name them or give the count", "dim": "PRECISION"}, {"kind": "uncited_attribution", "severity": "medium", "w": 348, "section": "(front matter)", "text": "Some researchers argue that adaptivity can significantly improve task performance and user\nsatisfaction.", "detail": "\"Some researchers\" with no citation", "fix": "Name the works, or drop the appeal to a consensus you are not citing.", "dim": "DEFENSIVE"}, {"kind": "vague_term", "severity": "low", "w": 348, "section": "(front matter)", "text": "Some researchers argue that adaptivity can significantly improve task performance and user\nsatisfaction.", "detail": "\"significantly\"", "fix": "statistically significant, or large? give the number", "dim": "PRECISION"}, {"kind": "no_connectives", "severity": "medium", "w": 348, "section": "(front matter)", "text": "Some researchers argue that adaptivity can significantly improve task performance and user\nsatisfaction.", "detail": "65-word argumentative paragraph, 4 sentences, no connective", "fix": "Sentences are adjacent but not related. Name the relation (contrast, cause, example) at least once.", "dim": "FLOW"}, {"kind": "vague_term", "severity": "low", "w": 381, "section": "(front matter)", "text": "This tension\nbetween personalization and predictability represents a crucial challenge for the design\ncommunity.", "detail": "\"crucial\"", "fix": "crucial to what outcome", "dim": "PRECISION"}, {"kind": "disclaimer", "severity": "medium", "w": 395, "section": "(front matter)", "text": "It should be noted that resolving this tension is likely to require careful\nconsideration of multiple competing factors.", "detail": "\"It should be noted that\"", "fix": "Delete the frame; keep the claim.", "dim": "DEFENSIVE"}, {"kind": "vague_term", "severity": "low", "w": 413, "section": "(front matter)", "text": "In this paper, we seek to address this gap by presenting a holistic framework for\nunderstanding engagement with adaptive interfaces.", "detail": "\"holistic\"", "fix": "name what it includes", "dim": "PRECISION"}, {"kind": "uncited_attribution", "severity": "medium", "w": 586, "section": "(front matter)", "text": "Several studies have investigated the relationship between adaptivity and perceived control.", "detail": "\"Several studies\" with no citation", "fix": "Name the works, or drop the appeal to a consensus you are not citing.", "dim": "DEFENSIVE"}, {"kind": "uncited_attribution", "severity": "medium", "w": 633, "section": "(front matter)", "text": "Some scholars have argued that the\nbenefits of personalization outweigh these concerns, while others maintain that transparency\nmechanisms are essential.", "detail": "\"Some scholars\" with no citation", "fix": "Name the works, or drop the appeal to a consensus you are not citing.", "dim": "DEFENSIVE"}, {"kind": "uncited_attribution", "severity": "medium", "w": 671, "section": "(front matter)", "text": "Prior studies have identified a number of factors that\nmay moderate user reactions, including technical expertise, prior experience with similar\nsystems, and various personality ch", "detail": "\"Prior studies\" with no citation", "fix": "Name the works, or drop the appeal to a consensus you are not citing.", "dim": "DEFENSIVE"}, {"kind": "vague_term", "severity": "low", "w": 671, "section": "(front matter)", "text": "Prior studies have identified a number of factors that\nmay moderate user reactions, including technical expertise, prior experience with similar\nsystems, and various personality ch", "detail": "\"various\"", "fix": "name them or give the count", "dim": "PRECISION"}, {"kind": "disclaimer", "severity": "medium", "w": 696, "section": "(front matter)", "text": "It is worth noting that this literature is\nstill relatively nascent, and further research is needed to establish robust findings.", "detail": "\"further research is needed\"", "fix": "Non-committal closer. Name the specific next study or cut the sentence.", "dim": "DEFENSIVE"}, {"kind": "vague_term", "severity": "low", "w": 696, "section": "(front matter)", "text": "It is worth noting that this literature is\nstill relatively nascent, and further research is needed to establish robust findings.", "detail": "\"robust\"", "fix": "robust to what perturbation", "dim": "PRECISION"}, {"kind": "orphan_reference", "severity": "medium", "w": 696, "section": "(front matter)", "text": "It is worth noting that this literature is\nstill relatively nascent, and further research is needed to establish robust findings.", "detail": "sentence opens with an unanchored pronoun", "fix": "Attach a noun: \"This constraint...\", \"This result...\".", "dim": "PRECISION"}, {"kind": "vague_term", "severity": "low", "w": 728, "section": "(front matter)", "text": "Researchers have\nproposed numerous frameworks and instruments for capturing this construct.", "detail": "\"numerous\"", "fix": "give the number", "dim": "PRECISION"}, {"kind": "vague_term", "severity": "low", "w": 739, "section": "(front matter)", "text": "However, there is\nas yet no consensus regarding the most appropriate operationalization, and different studies\nhave adopted markedly different approaches.", "detail": "\"appropriate\"", "fix": "by what criterion", "dim": "PRECISION"}, {"kind": "vague_term", "severity": "low", "w": 759, "section": "(front matter)", "text": "This heterogeneity presents a significant\nchallenge for synthesizing findings across the literature.", "detail": "\"significant\"", "fix": "statistically significant, or large? give the number", "dim": "PRECISION"}, {"kind": "filler", "severity": "low", "w": 810, "section": "(front matter)", "text": "We employed a mixed-methods approach in order to develop a comprehensive understanding of our\nresearch questions.", "detail": "\"in order to\"", "fix": "-> to", "dim": "REDUNDANT"}, {"kind": "vague_term", "severity": "low", "w": 826, "section": "(front matter)", "text": "This methodology was chosen because it allows for the triangulation of\nfindings across multiple data sources, thereby enhancing the robustness of our conclusions.", "detail": "\"robustness\"", "fix": "robust to what perturbation", "dim": "PRECISION"}, {"kind": "no_connectives", "severity": "medium", "w": 849, "section": "(front matter)", "text": "Participants were recruited through a combination of institutional mailing lists and social\nmedia channels.", "detail": "62-word argumentative paragraph, 4 sentences, no connective", "fix": "Sentences are adjacent but not related. Name the relation (contrast, cause, example) at least once.", "dim": "FLOW"}, {"kind": "orphan_reference", "severity": "medium", "w": 1020, "section": "(front matter)", "text": "It is important to acknowledge that our approach has certain limitations, which we discuss in\ngreater detail below.", "detail": "sentence opens with an unanchored pronoun", "fix": "Attach a noun: \"This constraint...\", \"This result...\".", "dim": "PRECISION"}, {"kind": "vague_term", "severity": "low", "w": 1058, "section": "(front matter)", "text": "Our analysis surfaced a number of important themes that collectively illuminate the complex\nways in which users engage with adaptive systems.", "detail": "\"complex\"", "fix": "complex in what respect", "dim": "PRECISION"}, {"kind": "vague_term", "severity": "low", "w": 1128, "section": "(front matter)", "text": "This finding underscores the importance of designing adaptivity that is\nresponsive without being disorienting.", "detail": "\"underscores\"", "fix": "shows", "dim": "PRECISION"}, {"kind": "vague_term", "severity": "low", "w": 1254, "section": "(front matter)", "text": "Taken together, these findings suggest that engagement with adaptive interfaces is shaped by\na complex interplay of system characteristics, user characteristics, and contextual fac", "detail": "\"complex\"", "fix": "complex in what respect", "dim": "PRECISION"}, {"kind": "vague_term", "severity": "low", "w": 1354, "section": "(front matter)", "text": "First, our findings suggest that transparency mechanisms may play a crucial role in\nsupporting positive user experiences.", "detail": "\"crucial\"", "fix": "crucial to what outcome", "dim": "PRECISION"}, {"kind": "vague_term", "severity": "low", "w": 1371, "section": "(front matter)", "text": "Second, our work highlights the importance of allowing\nusers to exercise meaningful control over adaptive features.", "detail": "\"meaningful\"", "fix": "meaningful on which measure", "dim": "PRECISION"}, {"kind": "vague_term", "severity": "low", "w": 1387, "section": "(front matter)", "text": "Third, our results underscore\nthe need to accommodate individual differences rather than assuming a homogeneous user\npopulation.", "detail": "\"underscore\"", "fix": "shows", "dim": "PRECISION"}, {"kind": "disclaimer", "severity": "medium", "w": 1404, "section": "(front matter)", "text": "It is important to note that our study has a number of limitations.", "detail": "\"It is important to note\"", "fix": "Announces significance instead of demonstrating it. State the point directly.", "dim": "DEFENSIVE"}, {"kind": "orphan_reference", "severity": "medium", "w": 1404, "section": "(front matter)", "text": "It is important to note that our study has a number of limitations.", "detail": "sentence opens with an unanchored pronoun", "fix": "Attach a noun: \"This constraint...\", \"This result...\".", "dim": "PRECISION"}, {"kind": "vague_term", "severity": "low", "w": 1453, "section": "(front matter)", "text": "Additionally, our reliance on self-report data introduces the\npossibility of various response biases.", "detail": "\"various\"", "fix": "name them or give the count", "dim": "PRECISION"}, {"kind": "vague_term", "severity": "low", "w": 1478, "section": "(front matter)", "text": "Despite these limitations, we believe our work makes a meaningful contribution to the field.", "detail": "\"meaningful\"", "fix": "meaningful on which measure", "dim": "PRECISION"}, {"kind": "vague_term", "severity": "low", "w": 1517, "section": "(front matter)", "text": "In this paper, we have presented a holistic framework for understanding user engagement with\nadaptive interfaces.", "detail": "\"holistic\"", "fix": "name what it includes", "dim": "PRECISION"}, {"kind": "vague_term", "severity": "low", "w": 1552, "section": "(front matter)", "text": "Our findings\nunderscore the multifaceted nature of this phenomenon and highlight the importance of\nconsidering technical, experiential, and individual dimensions in concert.", "detail": "\"underscore\"", "fix": "shows", "dim": "PRECISION"}, {"kind": "disclaimer", "severity": "medium", "w": 1588, "section": "(front matter)", "text": "In\nparticular, further investigation is needed to elucidate the mechanisms underlying individual\nvariation in responses to adaptivity.", "detail": "\"further investigation is needed\"", "fix": "Non-committal closer. Name the specific next study or cut the sentence.", "dim": "DEFENSIVE"}, {"kind": "vague_term", "severity": "low", "w": 1619, "section": "(front matter)", "text": "Ultimately, we hope that the perspective advanced\nhere will help pave the way toward adaptive systems that are not only more effective but also\nmore intelligible and more respectfu", "detail": "\"effective\"", "fix": "effective at what, measured how", "dim": "PRECISION"}], "bands": {"percentiles": {"p50": 0.078552, "p75": 0.338524, "p90": 0.738983, "p95": 0.882343, "p99": 0.983095, "p999": 0.997206, "max": 0.999501}, "primary_stratum": "pre_llm", "n_papers": 30, "controls": {"darwin_human": 0.13605, "assistant_typical": 0.99999}, "strata_summary": {"published": {"n_papers": 55, "n_windows": 1430, "percentiles": {"p50": 0.277198, "p75": 0.795861, "p90": 0.979537, "p95": 0.994956, "p99": 0.999511, "p999": 0.99996, "max": 0.999963}, "mean": 0.407925, "share_over_0_5": 37.9, "share_over": {"0.1": 66.85, "0.3": 48.81, "0.5": 37.9, "0.7": 29.23, "0.9": 18.95}, "median": 0.27722}, "pre_llm": {"n_papers": 30, "n_windows": 780, "percentiles": {"p50": 0.078552, "p75": 0.338524, "p90": 0.738983, "p95": 0.882343, "p99": 0.983095, "p999": 0.997206, "max": 0.999501}, "mean": 0.223487, "share_over_0_5": 17.05, "share_over": {"0.1": 45.64, "0.3": 27.18, "0.5": 17.05, "0.7": 11.67, "0.9": 4.49}, "median": 0.07849}}}, "bands_n_windows": 780, "bands_version": 2};
+const $ = s => document.querySelector(s);
+const el = (t,c,x)=>{const n=document.createElement(t); if(c)n.className=c; if(x!=null)n.textContent=x; return n;};
+const NS='http://www.w3.org/2000/svg';
+const sv=(t,a)=>{const n=document.createElementNS(NS,t); for(const k in a)n.setAttribute(k,a[k]); return n;};
+const esc = s => (s||'').replace(/[&<>]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+
+const LO=1e-4, LOGLO=Math.log10(LO);
+const ylog = p => (Math.log10(Math.max(p,LO)) - LOGLO) / (0 - LOGLO);
+
+const M = D.machine, B = D.bands, C = D.curve||[];
+const SS_G = (B&&B.strata_summary)||{};
+
+/* ---------- header ---------- */
+$('#h-title').textContent = D.title;
+$('#h-dek').textContent =
+  `${D.prose_words.toLocaleString()} prose words · ${D.sentences.toLocaleString()} sentences · `
+  + (M ? `${M.n_windows} overlapping ${D.window.words}-word windows, stride ${D.window.stride}`
+       : 'detector not run');
+
+function kpi(k,v,s,cls){
+  const d=el('div','kpi'); d.appendChild(el('div','k',k));
+  const val=el('div','v'+(cls?' '+cls:'')); val.innerHTML=v; d.appendChild(val);
+  d.appendChild(el('div','s',s)); return d;
+}
+const K=$('#kpis');
+if(M){
+  const pre = SS_G.pre_llm, pub = SS_G.published;
+  const ratio = pre? (pre.median / Math.max(M.median,1e-6)) : null;
+  K.appendChild(kpi('Median window', M.median.toFixed(4),
+    pre? `Pre-2022 human papers: ${pre.median.toFixed(4)} — ${ratio>=2? ratio.toFixed(0)+'× higher' : 'comparable'}`
+       : 'no reference band', 'ok'));
+  const shOK = pre? (M.share_over_0_5 <= pre.share_over['0.5']) : true;
+  K.appendChild(kpi('Windows above p = 0.5',
+    M.share_over_0_5.toFixed(1)+'%',
+    pre? `Pre-2022 human papers: ${pre.share_over['0.5']}% — the detector's false-positive floor`
+       : 'no reference band', shOK?'ok':'warn'));
+  const pk = M.max_percentile_vs_human;
+  const cls = pk==null ? '' : (pk>=99?'hot':(pk>=90?'warn':'ok'));
+  K.appendChild(kpi('Peak window', M.max.toFixed(4),
+    pk!=null? `Sits at the ${pk.toFixed(0)}th percentile of pre-2022 human windows` : 'no reference band', cls));
+}
+const fp = (D.style||{}).fingerprint;
+K.appendChild(kpi('Stylometric fingerprint',
+  fp? fp.fingerprint_index+'%' : '—',
+  fp? `Corpus median ${(fp.human_baseline||{}).median}%, p90 ${(fp.human_baseline||{}).p90}%` : 'not measured',
+  fp? (fp.fingerprint_index<=8.3?'ok':'warn') : ''));
+
+/* ---------- chart ---------- */
+(function(){
+  if(!C.length){ $('#chart').textContent='No curve (detector not run).'; return; }
+  const W=1100,H=380,PL=54,PR=118,PT=18,PB=52;
+  const maxW = C[C.length-1].w_end;
+  const X = w => PL + (W-PL-PR)*w/maxW;
+  const Y = p => PT + (H-PT-PB)*(1-ylog(p));
+  const s = sv('svg',{viewBox:`0 0 ${W} ${H}`,role:'img',
+    'aria-label':'Machine-likeness probability across the manuscript, log scale, with human reference band'});
+
+  // Reference bands, drawn behind everything. Two strata: the strict pre-ChatGPT band
+  // (papers that cannot contain generated text) and the lenient currently-published one.
+  const SS = (B&&B.strata_summary)||{};
+  if(SS.pre_llm){
+    const P=SS.pre_llm.percentiles;
+    [['p25','p75',.20],['p75','p95',.12]].forEach(([a,b,op])=>{
+      const y1=Y(P[b]||P.p90), y2=Y(P[a]||P.p50);
+      s.appendChild(sv('rect',{x:PL,y:Math.min(y1,y2),width:W-PL-PR,height:Math.abs(y2-y1),
+        fill:'var(--band)',opacity:op}));
+    });
+    const ym=Y(SS.pre_llm.median);
+    s.appendChild(sv('line',{x1:PL,x2:W-PR,y1:ym,y2:ym,stroke:'var(--band)','stroke-width':1.6}));
+    const t=sv('text',{x:W-PR+7,y:ym+3.5,'font-size':10.5,fill:'var(--band)',
+      'font-family':'ui-monospace,monospace'});
+    t.textContent='pre-2022 human'; s.appendChild(t);
+    const t2=sv('text',{x:W-PR+7,y:ym+16,'font-size':9.5,fill:'var(--muted)',
+      'font-family':'ui-monospace,monospace'});
+    t2.textContent='median'; s.appendChild(t2);
+  }
+  if(SS.published){
+    const ym=Y(SS.published.median);
+    s.appendChild(sv('line',{x1:PL,x2:W-PR,y1:ym,y2:ym,stroke:'var(--warn)','stroke-width':1.4,
+      'stroke-dasharray':'5 3'}));
+    const t=sv('text',{x:W-PR+7,y:ym+3.5,'font-size':10.5,fill:'var(--warn)',
+      'font-family':'ui-monospace,monospace'});
+    t.textContent='published 23–26'; s.appendChild(t);
+    const t2=sv('text',{x:W-PR+7,y:ym+16,'font-size':9.5,fill:'var(--muted)',
+      'font-family':'ui-monospace,monospace'});
+    t2.textContent='median'; s.appendChild(t2);
+  }
+  // the 0.5 line, where a naive reading would call a window "AI"
+  {
+    const y=Y(0.5);
+    s.appendChild(sv('line',{x1:PL,x2:W-PR,y1:y,y2:y,stroke:'var(--hot)','stroke-width':1,
+      'stroke-dasharray':'2 4',opacity:.7}));
+    const t=sv('text',{x:W-PR+7,y:y+3.5,'font-size':10.5,fill:'var(--hot)',
+      'font-family':'ui-monospace,monospace'});
+    t.textContent='p = 0.5'; s.appendChild(t);
+  }
+
+  // y axis decades
+  [1,0.1,0.01,0.001,0.0001].forEach(v=>{
+    const y=Y(v);
+    s.appendChild(sv('line',{x1:PL,x2:W-PR,y1:y,y2:y,stroke:'var(--hair)','stroke-width':1,opacity:.6}));
+    const t=sv('text',{x:PL-9,y:y+3.5,'text-anchor':'end','font-size':10.5,fill:'var(--muted)',
+      'font-family':'ui-monospace,monospace'});
+    t.textContent = v>=0.01? v.toString() : v.toExponential(0); s.appendChild(t);
+  });
+
+  // section boundaries
+  let last=null;
+  C.forEach(c=>{
+    if(c.section && c.section!==last){
+      last=c.section;
+      s.appendChild(sv('line',{x1:X(c.w_start),x2:X(c.w_start),y1:PT,y2:H-PB,
+        stroke:'var(--hair)','stroke-width':1,opacity:.85}));
+    }
+  });
+
+  // the curve
+  const pts=C.map(c=>`${X((c.w_start+c.w_end)/2).toFixed(1)},${Y(c.p_ai).toFixed(1)}`).join(' ');
+  s.appendChild(sv('polyline',{points:pts,fill:'none',stroke:'var(--ink)','stroke-width':1.6,
+    'stroke-linejoin':'round','stroke-linecap':'round'}));
+
+  // mark windows above the human p99
+  if(SS.pre_llm){
+    const thr=SS.pre_llm.percentiles.p90;
+    C.filter(c=>c.p_ai>thr).forEach(c=>{
+      s.appendChild(sv('circle',{cx:X((c.w_start+c.w_end)/2),cy:Y(c.p_ai),r:4,
+        fill:'var(--hot)',stroke:'var(--surface)','stroke-width':1.5}));
+    });
+  }
+  // always mark the single peak
+  const pk=C.reduce((a,b)=>b.p_ai>a.p_ai?b:a);
+  s.appendChild(sv('circle',{cx:X((pk.w_start+pk.w_end)/2),cy:Y(pk.p_ai),r:5.5,fill:'none',
+    stroke:'var(--hot)','stroke-width':2}));
+  const pkt=sv('text',{x:X((pk.w_start+pk.w_end)/2),y:Y(pk.p_ai)-11,'text-anchor':'middle',
+    'font-size':11,fill:'var(--hot)','font-family':'ui-monospace,monospace','font-weight':600});
+  pkt.textContent='peak '+pk.p_ai.toFixed(4); s.appendChild(pkt);
+
+  // x axis
+  const step = maxW>6000?2000:1000;
+  for(let w=0;w<=maxW;w+=step){
+    const t=sv('text',{x:X(w),y:H-PB+18,'text-anchor':'middle','font-size':10.5,
+      fill:'var(--muted)','font-family':'ui-monospace,monospace'});
+    t.textContent=w.toLocaleString(); s.appendChild(t);
+  }
+  const xl=sv('text',{x:PL,y:H-PB+36,'font-size':11,fill:'var(--muted)',
+    'font-family':'ui-monospace,monospace'});
+  xl.textContent='word position in the manuscript →'; s.appendChild(xl);
+  const yl=sv('text',{x:PL-9,y:PT-6,'text-anchor':'end','font-size':11,fill:'var(--muted)',
+    'font-family':'ui-monospace,monospace'});
+  yl.textContent='p(machine)'; s.appendChild(yl);
+
+  $('#chart').appendChild(s);
+
+  const L=$('#legend');
+  const add=(h)=>{const sp=el('span'); sp.innerHTML=h; L.appendChild(sp);};
+  add('<span class="ln" style="border-color:var(--ink)"></span>this manuscript');
+  if(SS.pre_llm){
+    add(`<i style="background:var(--band);opacity:.3"></i>where pre-2022 human papers fall `
+        + `(IQR–p95, n=${SS.pre_llm.n_windows.toLocaleString()} windows)`);
+    add('<span class="ln" style="border-color:var(--band)"></span>pre-2022 human median');
+    add('<i style="background:var(--hot)"></i>above the pre-2022 human p90');
+  }
+  if(SS.published){
+    add('<span class="ln" style="border-color:var(--warn);border-top-style:dashed"></span>'
+        + 'median of papers published 2023–26');
+  }
+  add('<span class="ln" style="border-color:var(--hot);border-top-style:dashed"></span>'
+      + 'p = 0.5 — 17% of pre-2022 human windows sit above this');
+  add('<span class="ln" style="border-color:var(--hair)"></span>section boundary');
+
+  $('#plot-sub').textContent =
+    'Log scale — a clean manuscript scores in the thousandths, so a linear axis would flatten '
+    + 'everything to zero. The shaded band is where windows of real published papers fall; the '
+    + 'question the plot answers is whether this manuscript leaves that band, and where.';
+})();
+
+/* ---------- peaks ---------- */
+(function(){
+  const box=$('#peaks');
+  if(!C.length){ box.textContent='—'; return; }
+  const thr = (SS_G.pre_llm? SS_G.pre_llm.percentiles.p90 : (B? B.percentiles.p99 : Infinity));
+  let hot = C.filter(c=>c.p_ai>thr).sort((a,b)=>b.p_ai-a.p_ai);
+  const shown = hot.length? hot.slice(0,8) : C.slice().sort((a,b)=>b.p_ai-a.p_ai).slice(0,3);
+
+  const v=el('div','verdict'+(hot.length? (hot.length>Math.max(3,C.length*0.02)?' hot':' warn'):''));
+  const h=el('h3'); const p=el('p');
+  if(!B){
+    h.textContent='No reference band available';
+    p.textContent='Run calibrate.py so these probabilities can be read against published human prose.';
+  } else if(!hot.length){
+    h.textContent='No passage leaves the human band';
+    p.innerHTML=`Every one of the ${C.length} windows falls inside the range published human-authored `
+      + `papers occupy. The three highest are shown below anyway — they are the passages to reread `
+      + `first if you want to keep improving, not passages that currently look wrong.`;
+  } else {
+    h.textContent=`${hot.length} window${hot.length>1?'s':''} above the human p99`;
+    p.innerHTML=`In a human-written paper about 1% of windows sit above this line by chance, which `
+      + `here would be ~${Math.max(1,Math.round(C.length*0.01))}. Passages quoted below; reread them `
+      + `for concreteness and sentence rhythm before deciding anything is wrong.`;
+  }
+  v.appendChild(h); v.appendChild(p); box.appendChild(v);
+
+  const t=document.createElement('div'); t.className='tscroll';
+  t.innerHTML='<table><thead><tr><th class="r">Word</th><th>Section</th><th class="r">p(machine)</th>'
+    +'<th class="r">vs human</th><th>Passage</th></tr></thead><tbody></tbody></table>';
+  const tb=t.querySelector('tbody');
+  shown.forEach(c=>{
+    const tr=el('tr');
+    tr.appendChild(el('td','r num mono', c.w_start+'–'+c.w_end));
+    tr.appendChild(el('td',null,c.section||'—'));
+    tr.appendChild(el('td','r num', c.p_ai.toFixed(4)));
+    const pv=el('td','r num');
+    if(c.pct_vs_human!=null){
+      const cls=c.pct_vs_human>=99?'p-hot':(c.pct_vs_human>=95?'p-warn':'p-ok');
+      pv.innerHTML=`<span class="pill ${cls}">p${c.pct_vs_human.toFixed(1)}</span>`;
+    } else pv.textContent='—';
+    tr.appendChild(pv);
+    const tx=el('td');
+    tx.innerHTML = c.text? `<blockquote>${esc(c.text.slice(0,420))}${c.text.length>420?'…':''}</blockquote>`
+                         : '<span style="color:var(--muted)">—</span>';
+    tr.appendChild(tx);
+    tb.appendChild(tr);
+  });
+  box.appendChild(t);
+})();
+
+/* ---------- dimensions ---------- */
+(function(){
+  const WHAT={
+    DEFENSIVE:'Hedge stacking, disclaimer frames, appeals to a consensus with no citation',
+    REDUNDANT:'Near-duplicate sentences, deletable filler, restatement openers',
+    PRECISION:'Vague terms, empty intensifiers, sentences opening on an unanchored pronoun',
+    FLOW:'Argumentative paragraphs with no connective, formulaic openers, connective monoculture'
+  };
+  const tb=$('#dimtable');
+  Object.entries(D.dimensions||{}).forEach(([k,v])=>{
+    const tr=el('tr');
+    tr.appendChild(el('td',null,k));
+    tr.appendChild(el('td','r num',v.n));
+    tr.appendChild(el('td','r num',v.per_1k));
+    tr.appendChild(el('td',null,WHAT[k]||''));
+    tb.appendChild(tr);
+  });
+  const ft=$('#findtable');
+  const ord={high:0,medium:1,low:2};
+  (D.findings||[]).slice().sort((a,b)=>ord[a.severity]-ord[b.severity]||a.w-b.w).forEach(f=>{
+    const tr=el('tr');
+    tr.appendChild(el('td',null,f.dim));
+    const k=el('td');
+    const cls=f.severity==='high'?'p-hot':(f.severity==='medium'?'p-warn':'p-ok');
+    k.innerHTML=`<span class="pill ${cls}">${f.kind}</span>`;
+    tr.appendChild(k);
+    tr.appendChild(el('td','r num mono',f.w));
+    tr.appendChild(el('td',null,f.section));
+    const d=el('td');
+    d.innerHTML=`${esc(f.detail)}<br><span style="color:var(--muted);font-size:13px">→ ${esc(f.fix)}</span>`
+      + (f.text? `<blockquote>${esc(f.text)}</blockquote>`:'');
+    tr.appendChild(d);
+    ft.appendChild(tr);
+  });
+})();
+
+/* ---------- footer ---------- */
+$('#foot-method').innerHTML =
+  `<strong>Method.</strong> p(machine) from Desklib <span class="mono">ai-text-detector-v1.01</span> `
+  + `(DeBERTa-v3-large), run entirely locally — no text left the machine. Scored over overlapping `
+  + `${D.window.words}-word windows at stride ${D.window.stride}. `
+  + (B? `The reference band is ${(D.bands_n_windows||0).toLocaleString()} windows drawn from published `
+       + `human-authored papers under identical windowing`
+      : 'No reference band was available for this run')
+  + `. Stylometric fingerprint from chi-paper, calibrated on 597 HCI papers. The four prose dimensions `
+  + `are deterministic pattern checks, independent of the model.`;
+</script>

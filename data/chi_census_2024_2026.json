@@ -1,0 +1,982 @@
+{
+ "_scope": {
+  "what_this_is": "Census of ACM CHI main-conference papers, 2024-2026, enumerated from the DBLP tables of contents (which mirror the ACM proceedings). Venue is ground truth, not author self-report.",
+  "what_it_can_measure": [
+   "abstract length and rhetoric",
+   "reference-list size (Crossref publisher-deposited reference-count)",
+   "topic and subfield composition",
+   "title conventions",
+   "open-access availability"
+  ],
+  "what_it_CANNOT_measure": [
+   "body word count, introduction length, figure/table counts, section skeleton, stylometry -- ACM full texts are paywalled. Those stay sourced from the arXiv corpus (calibration.json / skeleton_shapes.json) and keep the open-access caveat."
+  ],
+  "sources": {
+   "toc": "dblp.org/search/publ/api toc:db/conf/chi/chi{2024,2025,2026}.bht",
+   "metadata": "api.openalex.org/works filtered by DOI"
+  },
+  "harvested": "2026-07-29"
+ },
+ "counts": {
+  "total_main_conference": 4011,
+  "by_year": {
+   "2024": 1058,
+   "2025": 1250,
+   "2026": 1703
+  },
+  "openalex_matched": 4004,
+  "openalex_match_rate_pct": 99.8,
+  "with_abstract": 3143,
+  "abstract_coverage_pct": 78.4
+ },
+ "domain_composition": {
+  "definition": {
+   "core_game": "generative-AI/LLM term AND a game / player / NPC term",
+   "core_agent": "generative-AI/LLM term AND a character / persona / embodied- or conversational-agent term, with no game term",
+   "adjacent": "immersion, XR, presence, art, RtD, creativity-support, or a game/agent term with no generative-AI term",
+   "general": "everything else -- the rest of CHI"
+  },
+  "counts": {
+   "general": 2940,
+   "adjacent": 965,
+   "core_agent": 80,
+   "core_game": 26
+  },
+  "pct_of_chi": {
+   "general": 73.3,
+   "adjacent": 24.1,
+   "core_agent": 2.0,
+   "core_game": 0.6
+  },
+  "by_year": {
+   "2024": {
+    "n_total": 1058,
+    "general": 746,
+    "adjacent": 287,
+    "core_agent": 15,
+    "core_game": 10
+   },
+   "2025": {
+    "n_total": 1250,
+    "general": 977,
+    "adjacent": 255,
+    "core_agent": 13,
+    "core_game": 5
+   },
+   "2026": {
+    "n_total": 1703,
+    "general": 1217,
+    "adjacent": 423,
+    "core_agent": 52,
+    "core_game": 11
+   }
+  },
+  "by_year_abstract_subset": {
+   "2024": {
+    "n_with_abstract": 1058,
+    "abstract_coverage_pct": 100.0,
+    "general_pct": 70.5,
+    "adjacent_pct": 27.1,
+    "core_agent_pct": 1.4,
+    "core_game_pct": 0.9
+   },
+   "2025": {
+    "n_with_abstract": 548,
+    "abstract_coverage_pct": 43.8,
+    "general_pct": 73.7,
+    "adjacent_pct": 24.1,
+    "core_agent_pct": 1.6,
+    "core_game_pct": 0.5
+   },
+   "2026": {
+    "n_with_abstract": 1537,
+    "abstract_coverage_pct": 90.3,
+    "general_pct": 70.5,
+    "adjacent_pct": 25.6,
+    "core_agent_pct": 3.2,
+    "core_game_pct": 0.7
+   }
+  },
+  "caveat": "Keyword classification over title+abstract; precision spot-checked, not perfect. Read shares as magnitude, not as an exact subfield census. Compare years using by_year_abstract_subset only -- raw by_year is confounded with abstract deposit coverage."
+ },
+ "all_chi": {
+  "label": "CHI 2024-2026, all main-conference papers",
+  "n": 4011,
+  "abstract_words": {
+   "n": 3143,
+   "median": 149,
+   "mean": 147.3,
+   "p10": 133,
+   "p25": 143,
+   "p75": 151,
+   "p90": 161
+  },
+  "abstract_tails": {
+   "over_120w_pct": 95.5,
+   "over_150w_pct": 26.0,
+   "over_175w_pct": 4.6,
+   "over_200w_pct": 1.3,
+   "over_250w_pct": 0.3,
+   "under_120w_pct": 4.1,
+   "in_140_160w_pct": 72.5
+  },
+  "references": {
+   "n": 4006,
+   "median": 88.0,
+   "mean": 93.5,
+   "p10": 54,
+   "p25": 69,
+   "p75": 112,
+   "p90": 138
+  },
+  "references_source": {
+   "crossref_deposited": 4006,
+   "openalex_fallback_available": 1,
+   "note": "Crossref reference-count = the bibliography the publisher deposited. OpenAlex referenced_works_count is a ~80% lower bound (validate_refcount.py, n=400) and is NOT mixed into this figure."
+  },
+  "title_words": {
+   "n": 4011,
+   "median": 12,
+   "mean": 12.8,
+   "p10": 8,
+   "p25": 10,
+   "p75": 15,
+   "p90": 18
+  },
+  "colon_in_title_pct": 74.1,
+  "authors_per_paper": {
+   "n": 4011,
+   "median": 5,
+   "mean": 5.1,
+   "p10": 3,
+   "p25": 3,
+   "p75": 6,
+   "p90": 8
+  },
+  "open_access_pct": 91.3,
+  "arxiv_fulltext_pct": 0.0,
+  "abstract_probes_pct": {
+   "contribution_phrase": 6.9,
+   "we_present": 33.4,
+   "rq_in_abstract": 0.3,
+   "n_participants": 28.5,
+   "study_count_multi": 2.9,
+   "interview_method": 23.1,
+   "survey_method": 5.8,
+   "controlled_expt": 7.9,
+   "thematic": 3.9,
+   "design_workshop": 9.9,
+   "system_artifact": 12.0,
+   "llm_genai": 16.5,
+   "names_a_phenomenon": 1.0,
+   "limitations_hedge": 4.9,
+   "open_release": 1.3
+  },
+  "abstract_probe_n": 3143
+ },
+ "by_year": {
+  "2024": {
+   "label": "CHI 2024",
+   "n": 1058,
+   "abstract_words": {
+    "n": 1058,
+    "median": 148.0,
+    "mean": 148.0,
+    "p10": 134,
+    "p25": 143,
+    "p75": 150,
+    "p90": 159
+   },
+   "abstract_tails": {
+    "over_120w_pct": 95.8,
+    "over_150w_pct": 21.3,
+    "over_175w_pct": 5.4,
+    "over_200w_pct": 2.3,
+    "over_250w_pct": 0.7,
+    "under_120w_pct": 3.6,
+    "in_140_160w_pct": 72.4
+   },
+   "references": {
+    "n": 1057,
+    "median": 82,
+    "mean": 88.2,
+    "p10": 50,
+    "p25": 63,
+    "p75": 105,
+    "p90": 131
+   },
+   "references_source": {
+    "crossref_deposited": 1057,
+    "openalex_fallback_available": 0,
+    "note": "Crossref reference-count = the bibliography the publisher deposited. OpenAlex referenced_works_count is a ~80% lower bound (validate_refcount.py, n=400) and is NOT mixed into this figure."
+   },
+   "title_words": {
+    "n": 1058,
+    "median": 12.5,
+    "mean": 12.9,
+    "p10": 8,
+    "p25": 10,
+    "p75": 15,
+    "p90": 18
+   },
+   "colon_in_title_pct": 71.9,
+   "authors_per_paper": {
+    "n": 1058,
+    "median": 5.0,
+    "mean": 5.2,
+    "p10": 3,
+    "p25": 4,
+    "p75": 6,
+    "p90": 8
+   },
+   "open_access_pct": 100.0,
+   "arxiv_fulltext_pct": 0.0,
+   "abstract_probes_pct": {
+    "contribution_phrase": 3.4,
+    "we_present": 32.6,
+    "rq_in_abstract": 0.0,
+    "n_participants": 24.4,
+    "study_count_multi": 2.6,
+    "interview_method": 23.8,
+    "survey_method": 6.1,
+    "controlled_expt": 4.8,
+    "thematic": 3.3,
+    "design_workshop": 8.2,
+    "system_artifact": 12.2,
+    "llm_genai": 10.4,
+    "names_a_phenomenon": 0.4,
+    "limitations_hedge": 4.5,
+    "open_release": 1.3
+   },
+   "abstract_probe_n": 1058
+  },
+  "2025": {
+   "label": "CHI 2025",
+   "n": 1250,
+   "abstract_words": {
+    "n": 548,
+    "median": 147.0,
+    "mean": 143.2,
+    "p10": 127,
+    "p25": 140,
+    "p75": 151,
+    "p90": 161
+   },
+   "abstract_tails": {
+    "over_120w_pct": 91.4,
+    "over_150w_pct": 25.9,
+    "over_175w_pct": 4.7,
+    "over_200w_pct": 1.3,
+    "over_250w_pct": 0.4,
+    "under_120w_pct": 8.2,
+    "in_140_160w_pct": 66.6
+   },
+   "references": {
+    "n": 1249,
+    "median": 87,
+    "mean": 93.5,
+    "p10": 54,
+    "p25": 70,
+    "p75": 112,
+    "p90": 139
+   },
+   "references_source": {
+    "crossref_deposited": 1249,
+    "openalex_fallback_available": 0,
+    "note": "Crossref reference-count = the bibliography the publisher deposited. OpenAlex referenced_works_count is a ~80% lower bound (validate_refcount.py, n=400) and is NOT mixed into this figure."
+   },
+   "title_words": {
+    "n": 1250,
+    "median": 12.0,
+    "mean": 12.8,
+    "p10": 8,
+    "p25": 10,
+    "p75": 15,
+    "p90": 18
+   },
+   "colon_in_title_pct": 72.6,
+   "authors_per_paper": {
+    "n": 1250,
+    "median": 5.0,
+    "mean": 5.0,
+    "p10": 3,
+    "p25": 3,
+    "p75": 6,
+    "p90": 8
+   },
+   "open_access_pct": 82.1,
+   "arxiv_fulltext_pct": 0.0,
+   "abstract_probes_pct": {
+    "contribution_phrase": 5.7,
+    "we_present": 27.2,
+    "rq_in_abstract": 0.2,
+    "n_participants": 26.5,
+    "study_count_multi": 3.3,
+    "interview_method": 22.6,
+    "survey_method": 6.2,
+    "controlled_expt": 5.8,
+    "thematic": 3.8,
+    "design_workshop": 10.6,
+    "system_artifact": 8.2,
+    "llm_genai": 17.0,
+    "names_a_phenomenon": 0.4,
+    "limitations_hedge": 7.1,
+    "open_release": 0.7
+   },
+   "abstract_probe_n": 548
+  },
+  "2026": {
+   "label": "CHI 2026",
+   "n": 1703,
+   "abstract_words": {
+    "n": 1537,
+    "median": 149,
+    "mean": 148.3,
+    "p10": 135,
+    "p25": 144,
+    "p75": 152,
+    "p90": 161
+   },
+   "abstract_tails": {
+    "over_120w_pct": 96.8,
+    "over_150w_pct": 29.3,
+    "over_175w_pct": 4.1,
+    "over_200w_pct": 0.7,
+    "over_250w_pct": 0.0,
+    "under_120w_pct": 3.1,
+    "in_140_160w_pct": 74.7
+   },
+   "references": {
+    "n": 1700,
+    "median": 91.0,
+    "mean": 96.8,
+    "p10": 57,
+    "p25": 71,
+    "p75": 116,
+    "p90": 140
+   },
+   "references_source": {
+    "crossref_deposited": 1700,
+    "openalex_fallback_available": 1,
+    "note": "Crossref reference-count = the bibliography the publisher deposited. OpenAlex referenced_works_count is a ~80% lower bound (validate_refcount.py, n=400) and is NOT mixed into this figure."
+   },
+   "title_words": {
+    "n": 1703,
+    "median": 12,
+    "mean": 12.7,
+    "p10": 8,
+    "p25": 10,
+    "p75": 15,
+    "p90": 18
+   },
+   "colon_in_title_pct": 76.5,
+   "authors_per_paper": {
+    "n": 1703,
+    "median": 5,
+    "mean": 5.1,
+    "p10": 3,
+    "p25": 3,
+    "p75": 6,
+    "p90": 8
+   },
+   "open_access_pct": 92.8,
+   "arxiv_fulltext_pct": 0.0,
+   "abstract_probes_pct": {
+    "contribution_phrase": 9.8,
+    "we_present": 36.2,
+    "rq_in_abstract": 0.5,
+    "n_participants": 32.0,
+    "study_count_multi": 2.9,
+    "interview_method": 22.8,
+    "survey_method": 5.3,
+    "controlled_expt": 10.7,
+    "thematic": 4.3,
+    "design_workshop": 10.8,
+    "system_artifact": 13.1,
+    "llm_genai": 20.5,
+    "names_a_phenomenon": 1.8,
+    "limitations_hedge": 4.4,
+    "open_release": 1.6
+   },
+   "abstract_probe_n": 1537
+  }
+ },
+ "pool_core_game": {
+  "label": "CHI 2024-2026, core_game pool",
+  "n": 26,
+  "abstract_words": {
+   "n": 23,
+   "median": 149,
+   "mean": 151.0,
+   "p10": 139,
+   "p25": 146,
+   "p75": 151,
+   "p90": 164
+  },
+  "abstract_tails": {
+   "over_120w_pct": 95.7,
+   "over_150w_pct": 30.4,
+   "over_175w_pct": 4.3,
+   "over_200w_pct": 4.3,
+   "over_250w_pct": 0.0,
+   "under_120w_pct": 4.3,
+   "in_140_160w_pct": 69.6
+  },
+  "references": {
+   "n": 26,
+   "median": 84.5,
+   "mean": 89.3,
+   "p10": 58,
+   "p25": 70,
+   "p75": 115,
+   "p90": 122
+  },
+  "references_source": {
+   "crossref_deposited": 26,
+   "openalex_fallback_available": 0,
+   "note": "Crossref reference-count = the bibliography the publisher deposited. OpenAlex referenced_works_count is a ~80% lower bound (validate_refcount.py, n=400) and is NOT mixed into this figure."
+  },
+  "title_words": {
+   "n": 26,
+   "median": 12.5,
+   "mean": 13.1,
+   "p10": 9,
+   "p25": 10,
+   "p75": 16,
+   "p90": 17
+  },
+  "colon_in_title_pct": 84.6,
+  "authors_per_paper": {
+   "n": 26,
+   "median": 5.0,
+   "mean": 5.0,
+   "p10": 2,
+   "p25": 4,
+   "p75": 6,
+   "p90": 7
+  },
+  "open_access_pct": 92.3,
+  "arxiv_fulltext_pct": 0.0,
+  "abstract_probes_pct": {
+   "contribution_phrase": 8.7,
+   "we_present": 43.5,
+   "rq_in_abstract": 0.0,
+   "n_participants": 39.1,
+   "study_count_multi": 8.7,
+   "interview_method": 26.1,
+   "survey_method": 8.7,
+   "controlled_expt": 8.7,
+   "thematic": 4.3,
+   "design_workshop": 0.0,
+   "system_artifact": 8.7,
+   "llm_genai": 73.9,
+   "names_a_phenomenon": 0.0,
+   "limitations_hedge": 0.0,
+   "open_release": 4.3
+  },
+  "abstract_probe_n": 23
+ },
+ "pool_core_agent": {
+  "label": "CHI 2024-2026, core_agent pool",
+  "n": 80,
+  "abstract_words": {
+   "n": 73,
+   "median": 149,
+   "mean": 149.6,
+   "p10": 137,
+   "p25": 146,
+   "p75": 151,
+   "p90": 163
+  },
+  "abstract_tails": {
+   "over_120w_pct": 100.0,
+   "over_150w_pct": 26.0,
+   "over_175w_pct": 2.7,
+   "over_200w_pct": 0.0,
+   "over_250w_pct": 0.0,
+   "under_120w_pct": 0.0,
+   "in_140_160w_pct": 71.2
+  },
+  "references": {
+   "n": 80,
+   "median": 91.5,
+   "mean": 93.5,
+   "p10": 55,
+   "p25": 68,
+   "p75": 114,
+   "p90": 141
+  },
+  "references_source": {
+   "crossref_deposited": 80,
+   "openalex_fallback_available": 0,
+   "note": "Crossref reference-count = the bibliography the publisher deposited. OpenAlex referenced_works_count is a ~80% lower bound (validate_refcount.py, n=400) and is NOT mixed into this figure."
+  },
+  "title_words": {
+   "n": 80,
+   "median": 13.0,
+   "mean": 13.0,
+   "p10": 9,
+   "p25": 11,
+   "p75": 15,
+   "p90": 17
+  },
+  "colon_in_title_pct": 78.8,
+  "authors_per_paper": {
+   "n": 80,
+   "median": 5.0,
+   "mean": 5.6,
+   "p10": 3,
+   "p25": 4,
+   "p75": 7,
+   "p90": 9
+  },
+  "open_access_pct": 95.0,
+  "arxiv_fulltext_pct": 0.0,
+  "abstract_probes_pct": {
+   "contribution_phrase": 8.2,
+   "we_present": 34.2,
+   "rq_in_abstract": 4.1,
+   "n_participants": 45.2,
+   "study_count_multi": 4.1,
+   "interview_method": 20.5,
+   "survey_method": 1.4,
+   "controlled_expt": 19.2,
+   "thematic": 1.4,
+   "design_workshop": 8.2,
+   "system_artifact": 12.3,
+   "llm_genai": 64.4,
+   "names_a_phenomenon": 1.4,
+   "limitations_hedge": 5.5,
+   "open_release": 0.0
+  },
+  "abstract_probe_n": 73
+ },
+ "pool_adjacent": {
+  "label": "CHI 2024-2026, adjacent pool",
+  "n": 965,
+  "abstract_words": {
+   "n": 813,
+   "median": 149,
+   "mean": 147.4,
+   "p10": 133,
+   "p25": 143,
+   "p75": 151,
+   "p90": 159
+  },
+  "abstract_tails": {
+   "over_120w_pct": 96.6,
+   "over_150w_pct": 25.6,
+   "over_175w_pct": 3.8,
+   "over_200w_pct": 1.7,
+   "over_250w_pct": 0.5,
+   "under_120w_pct": 3.3,
+   "in_140_160w_pct": 73.9
+  },
+  "references": {
+   "n": 963,
+   "median": 86,
+   "mean": 92.4,
+   "p10": 54,
+   "p25": 68,
+   "p75": 108,
+   "p90": 133
+  },
+  "references_source": {
+   "crossref_deposited": 963,
+   "openalex_fallback_available": 0,
+   "note": "Crossref reference-count = the bibliography the publisher deposited. OpenAlex referenced_works_count is a ~80% lower bound (validate_refcount.py, n=400) and is NOT mixed into this figure."
+  },
+  "title_words": {
+   "n": 965,
+   "median": 13,
+   "mean": 12.9,
+   "p10": 9,
+   "p25": 10,
+   "p75": 15,
+   "p90": 18
+  },
+  "colon_in_title_pct": 75.2,
+  "authors_per_paper": {
+   "n": 965,
+   "median": 5,
+   "mean": 5.2,
+   "p10": 3,
+   "p25": 4,
+   "p75": 6,
+   "p90": 8
+  },
+  "open_access_pct": 93.2,
+  "arxiv_fulltext_pct": 0.0,
+  "abstract_probes_pct": {
+   "contribution_phrase": 7.9,
+   "we_present": 35.8,
+   "rq_in_abstract": 0.1,
+   "n_participants": 33.2,
+   "study_count_multi": 3.9,
+   "interview_method": 14.5,
+   "survey_method": 4.3,
+   "controlled_expt": 9.8,
+   "thematic": 3.6,
+   "design_workshop": 11.7,
+   "system_artifact": 14.0,
+   "llm_genai": 6.4,
+   "names_a_phenomenon": 0.7,
+   "limitations_hedge": 5.5,
+   "open_release": 1.1
+  },
+  "abstract_probe_n": 813
+ },
+ "pool_general": {
+  "label": "CHI 2024-2026, general pool",
+  "n": 2940,
+  "abstract_words": {
+   "n": 2234,
+   "median": 149.0,
+   "mean": 147.2,
+   "p10": 133,
+   "p25": 143,
+   "p75": 151,
+   "p90": 161
+  },
+  "abstract_tails": {
+   "over_120w_pct": 95.0,
+   "over_150w_pct": 26.1,
+   "over_175w_pct": 5.0,
+   "over_200w_pct": 1.2,
+   "over_250w_pct": 0.2,
+   "under_120w_pct": 4.6,
+   "in_140_160w_pct": 72.1
+  },
+  "references": {
+   "n": 2937,
+   "median": 88,
+   "mean": 93.9,
+   "p10": 54,
+   "p25": 69,
+   "p75": 113,
+   "p90": 139
+  },
+  "references_source": {
+   "crossref_deposited": 2937,
+   "openalex_fallback_available": 1,
+   "note": "Crossref reference-count = the bibliography the publisher deposited. OpenAlex referenced_works_count is a ~80% lower bound (validate_refcount.py, n=400) and is NOT mixed into this figure."
+  },
+  "title_words": {
+   "n": 2940,
+   "median": 12.0,
+   "mean": 12.8,
+   "p10": 8,
+   "p25": 10,
+   "p75": 15,
+   "p90": 18
+  },
+  "colon_in_title_pct": 73.5,
+  "authors_per_paper": {
+   "n": 2940,
+   "median": 5.0,
+   "mean": 5.0,
+   "p10": 2,
+   "p25": 3,
+   "p75": 6,
+   "p90": 8
+  },
+  "open_access_pct": 90.6,
+  "arxiv_fulltext_pct": 0.0,
+  "abstract_probes_pct": {
+   "contribution_phrase": 6.5,
+   "we_present": 32.5,
+   "rq_in_abstract": 0.2,
+   "n_participants": 26.1,
+   "study_count_multi": 2.4,
+   "interview_method": 26.3,
+   "survey_method": 6.4,
+   "controlled_expt": 6.8,
+   "thematic": 4.1,
+   "design_workshop": 9.4,
+   "system_artifact": 11.2,
+   "llm_genai": 18.0,
+   "names_a_phenomenon": 1.2,
+   "limitations_hedge": 4.7,
+   "open_release": 1.4
+  },
+  "abstract_probe_n": 2234
+ },
+ "pool_core_combined": {
+  "label": "CHI 2024-2026, core_game + core_agent",
+  "n": 106,
+  "abstract_words": {
+   "n": 96,
+   "median": 149.0,
+   "mean": 149.9,
+   "p10": 139,
+   "p25": 146,
+   "p75": 151,
+   "p90": 164
+  },
+  "abstract_tails": {
+   "over_120w_pct": 99.0,
+   "over_150w_pct": 27.1,
+   "over_175w_pct": 3.1,
+   "over_200w_pct": 1.0,
+   "over_250w_pct": 0.0,
+   "under_120w_pct": 1.0,
+   "in_140_160w_pct": 70.8
+  },
+  "references": {
+   "n": 106,
+   "median": 88.5,
+   "mean": 92.5,
+   "p10": 55,
+   "p25": 68,
+   "p75": 115,
+   "p90": 137
+  },
+  "references_source": {
+   "crossref_deposited": 106,
+   "openalex_fallback_available": 0,
+   "note": "Crossref reference-count = the bibliography the publisher deposited. OpenAlex referenced_works_count is a ~80% lower bound (validate_refcount.py, n=400) and is NOT mixed into this figure."
+  },
+  "title_words": {
+   "n": 106,
+   "median": 13.0,
+   "mean": 13.0,
+   "p10": 9,
+   "p25": 11,
+   "p75": 15,
+   "p90": 17
+  },
+  "colon_in_title_pct": 80.2,
+  "authors_per_paper": {
+   "n": 106,
+   "median": 5.0,
+   "mean": 5.5,
+   "p10": 3,
+   "p25": 4,
+   "p75": 7,
+   "p90": 8
+  },
+  "open_access_pct": 94.3,
+  "arxiv_fulltext_pct": 0.0,
+  "abstract_probes_pct": {
+   "contribution_phrase": 8.3,
+   "we_present": 36.5,
+   "rq_in_abstract": 3.1,
+   "n_participants": 43.8,
+   "study_count_multi": 5.2,
+   "interview_method": 21.9,
+   "survey_method": 3.1,
+   "controlled_expt": 16.7,
+   "thematic": 2.1,
+   "design_workshop": 6.2,
+   "system_artifact": 11.5,
+   "llm_genai": 66.7,
+   "names_a_phenomenon": 1.0,
+   "limitations_hedge": 4.2,
+   "open_release": 1.0
+  },
+  "abstract_probe_n": 96
+ },
+ "topics": {
+  "top_all_chi": [
+   [
+    "Innovative Human-Technology Interaction",
+    834
+   ],
+   [
+    "Interactive and Immersive Displays",
+    437
+   ],
+   [
+    "Virtual Reality Applications and Impacts",
+    411
+   ],
+   [
+    "Tactile and Sensory Interactions",
+    385
+   ],
+   [
+    "Ethics and Social Impacts of AI",
+    369
+   ],
+   [
+    "AI in Service Interactions",
+    324
+   ],
+   [
+    "Social Robot Interaction and HRI",
+    248
+   ],
+   [
+    "Digital Mental Health Interventions",
+    215
+   ],
+   [
+    "Data Visualization and Analytics",
+    204
+   ],
+   [
+    "Augmented Reality Applications",
+    198
+   ],
+   [
+    "Artificial Intelligence in Healthcare and Education",
+    193
+   ],
+   [
+    "Human-Automation Interaction and Safety",
+    156
+   ],
+   [
+    "Technology Use by Older Adults",
+    153
+   ],
+   [
+    "Privacy, Security, and Data Protection",
+    148
+   ],
+   [
+    "Usability and User Interface Design",
+    125
+   ],
+   [
+    "Digital Games and Media",
+    125
+   ],
+   [
+    "Impact of Technology on Adolescents",
+    114
+   ],
+   [
+    "Personal Information Management and User Behavior",
+    114
+   ],
+   [
+    "Explainable Artificial Intelligence (XAI)",
+    112
+   ],
+   [
+    "Gaze Tracking and Assistive Technology",
+    109
+   ],
+   [
+    "Child Development and Digital Technology",
+    108
+   ],
+   [
+    "Educational Games and Gamification",
+    106
+   ],
+   [
+    "Persona Design and Applications",
+    99
+   ],
+   [
+    "ICT in Developing Communities",
+    98
+   ],
+   [
+    "Teaching and Learning Programming",
+    94
+   ]
+  ],
+  "top_core_pool": [
+   [
+    "AI in Service Interactions",
+    42
+   ],
+   [
+    "Social Robot Interaction and HRI",
+    33
+   ],
+   [
+    "Innovative Human-Technology Interaction",
+    18
+   ],
+   [
+    "Digital Mental Health Interventions",
+    16
+   ],
+   [
+    "Persona Design and Applications",
+    15
+   ],
+   [
+    "Artificial Intelligence in Games",
+    13
+   ],
+   [
+    "Educational Games and Gamification",
+    12
+   ],
+   [
+    "Ethics and Social Impacts of AI",
+    12
+   ],
+   [
+    "Digital Games and Media",
+    11
+   ],
+   [
+    "Artificial Intelligence in Healthcare and Education",
+    11
+   ],
+   [
+    "Virtual Reality Applications and Impacts",
+    7
+   ],
+   [
+    "Action Observation and Synchronization",
+    5
+   ],
+   [
+    "Autism Spectrum Disorder Research",
+    4
+   ],
+   [
+    "Human-Automation Interaction and Safety",
+    4
+   ],
+   [
+    "Explainable Artificial Intelligence (XAI)",
+    4
+   ],
+   [
+    "Technology Use by Older Adults",
+    4
+   ],
+   [
+    "Intelligent Tutoring Systems and Adaptive Learning",
+    4
+   ],
+   [
+    "Privacy, Security, and Data Protection",
+    3
+   ],
+   [
+    "Media Influence and Health",
+    3
+   ],
+   [
+    "Child Development and Digital Technology",
+    2
+   ]
+  ]
+ },
+ "core_pool_trend": {
+  "2024": {
+   "n": 25,
+   "llm_genai_pct": 64.0,
+   "abstract_n": 25
+  },
+  "2025": {
+   "n": 18,
+   "llm_genai_pct": 91.7,
+   "abstract_n": 12
+  },
+  "2026": {
+   "n": 63,
+   "llm_genai_pct": 62.7,
+   "abstract_n": 59
+  }
+ }
+}

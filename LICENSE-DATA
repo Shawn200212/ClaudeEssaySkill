@@ -1,0 +1,9 @@
+The contents of `data/` — chi_census_2024_2026.json, calibration_bands.json, lexical_bands.json —
+are released under the Creative Commons Attribution 4.0 International licence (CC BY 4.0).
+https://creativecommons.org/licenses/by/4.0/
+
+These files contain MEASUREMENTS computed over published academic papers: counts, distributions,
+percentiles, and rates. They do not reproduce the papers themselves. Bibliographic identifiers
+(DOIs, titles) are facts and are not subject to copyright.
+
+If you use them, cite this repository.
