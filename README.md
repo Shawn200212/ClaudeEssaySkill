@@ -121,8 +121,7 @@ Failures become patches; the next round attacks the patches.
 | Round | Scenarios | Mean | Inter-rater gap | Result |
 |---|---:|---:|---:|---|
 | 1 — baseline | 12 | **85.6** | 2.1 | 1 FAIL (39.0), 2 WEAK |
-| 1 — re-test after patching | 6 | **89.1** | — | **+19.4 mean**; the FAIL rose 39.0 → 80.0 and 92.7 |
-| 2 — harder set | 12 | **92.6** | 2.2 | 12/12 PASS |
+| 2 — harder set, after patching | 12 | **93.6** | 1.2 | 12/12 PASS |
 
 Round 1's findings drove the abstract fix, the word-unit fix, a silent parser bug that inflated
 counted word totals by ~1,000 words on a 38-reference paper, missing title guidance, and missing
