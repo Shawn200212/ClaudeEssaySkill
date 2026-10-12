@@ -1,0 +1,6 @@
+# Line endings: LF in the repository and in working copies, on every PC, so a commit never
+# carries line-ending noise and no file mixes the two. Windows-native scripts keep CRLF on disk.
+* text=auto eol=lf
+*.ps1 text eol=crlf
+*.cmd text eol=crlf
+*.bat text eol=crlf
