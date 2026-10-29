@@ -1,6 +1,10 @@
-# ClaudeEssaySkill — 用实测数据支撑的 ACM CHI 写作指导，以及一套经过校准的文本验证器
+[English](README.md) | [简体中文](README.zh-CN.md)
 
-[English](README.md) | **中文**
+<a id="claudeessayskill--measured-writing-guidance-for-acm-chi-and-a-calibrated-prose-verifier--claudeessayskill--用实测数据支撑的-acm-chi-写作指导以及一套经过校准的文本验证器"></a>
+<a id="claudeessayskill--measured-writing-guidance-for-acm-chi-and-a-calibrated-prose-verifier"></a>
+<a id="claudeessayskill--用实测数据支撑的-acm-chi-写作指导以及一套经过校准的文本验证器"></a>
+
+# ClaudeEssaySkill — 用实测数据支撑的 ACM CHI 写作指导，以及一套经过校准的文本验证器
 
 > 两个 Claude Code skill，构成学术论文的「生成器 / 验证器」配对。
 > 它们对「一篇正常的论文长什么样」的每一处断言，都对照
@@ -10,6 +14,10 @@
 > skill 源码存放在**私有仓库**，需申请获取权限。本仓库是公开记录：做了什么、如何校准、目前表现如何。
 
 ---
+
+<a id="the-problem-this-was-built-for--这个工具要解决的问题"></a>
+<a id="the-problem-this-was-built-for"></a>
+<a id="这个工具要解决的问题"></a>
 
 ## 这个工具要解决的问题
 
@@ -29,6 +37,10 @@
 第二个失误更有教益。那个数字并非编造，它测得没错，只是**被用错了单位**，
 而且离那份写着正确答案的合规文件只有约 100 行。没有单位纪律的精确，不过是自信的错误。
 
+<a id="the-second-problem-detector-scores-that-mean-nothing--第二个问题没有意义的检测分数"></a>
+<a id="the-second-problem-detector-scores-that-mean-nothing"></a>
+<a id="第二个问题没有意义的检测分数"></a>
+
 ## 第二个问题：没有意义的检测分数
 
 所有 AI 文本检测器都给你一个 [0,1] 的数，却没有一个告诉你它是什么意思。
@@ -45,6 +57,10 @@
 这就是该检测器在人们实际使用它的那个任务上的假阳率。它意味着：
 **任何单一段落的分数都不足以支撑任何结论**；也意味着每一个给你看「AI 占比百分数」的产品，
 展示的都是它无法自证的东西。
+
+<a id="what-the-instrument-sees--这套仪器看到的东西"></a>
+<a id="what-the-instrument-sees"></a>
+<a id="这套仪器看到的东西"></a>
 
 ## 这套仪器看到的东西
 
@@ -74,6 +90,10 @@
 这套仪器**不假装人类写作是干净的**——它报告真实人类散文实际落在哪里，
 这是它的阈值能有意义的唯一途径。
 
+<a id="the-two-skills--两个-skill"></a>
+<a id="the-two-skills"></a>
+<a id="两个-skill"></a>
+
 ## 两个 skill
 
 **`chi-paper`**——生成器。每个投稿周期重新核验的会议规则、逐节结构、贡献陈述框架、
@@ -100,6 +120,10 @@ flowchart LR
     O -.-> C2
     B[("人类参照带<br/>780 个 pre-LLM 窗口<br/>146 篇论文")] -.-> E
 ```
+
+<a id="how-it-was-built-and-tested--如何构建与检验"></a>
+<a id="how-it-was-built-and-tested"></a>
+<a id="如何构建与检验"></a>
 
 ## 如何构建与检验
 
@@ -147,6 +171,10 @@ flowchart LR
 [`docs/adversarial-protocol.md`](docs/adversarial-protocol.md)；
 完整普查审计见 [`docs/audit-skill-vs-census.md`](docs/audit-skill-vs-census.md)。
 
+<a id="what-is-published-here--本仓库公开了什么"></a>
+<a id="what-is-published-here"></a>
+<a id="本仓库公开了什么"></a>
+
 ## 本仓库公开了什么
 
 | | |
@@ -162,6 +190,10 @@ flowchart LR
 以及任何在审稿中的未发表稿件的输出。这里公开的是**测量结果**，不是被测量的作品。
 所有参照带都可以用核心仓库里的采集与校准脚本从零重建。
 
+<a id="access--获取权限"></a>
+<a id="access"></a>
+<a id="获取权限"></a>
+
 ## 获取权限
 
 skill 源码在私有仓库。若你想使用，请在本仓库开一个 issue 说明用途，我会把你加为协作者。
@@ -171,6 +203,10 @@ public 意味着任何人都能 `git clone`；private 意味着没有邀请谁�
 因为 Git 协议要渲染任何一个文件，就必须把全部对象发给客户端。
 公开仓库配一份限制性许可证只是**法律**上的门槛，不是**技术**上的。
 所以拆法是：本仓库公开，源码私有，按邀请授权。
+
+<a id="honest-limits--诚实的边界"></a>
+<a id="honest-limits"></a>
+<a id="诚实的边界"></a>
 
 ## 诚实的边界
 
@@ -185,6 +221,10 @@ public 意味着任何人都能 `git clone`；private 意味着没有邀请谁�
 - **两个分层之间的差距是成分未知的强信号**。2023–26 已发表论文的分数远高于 2022 年前
   （中位 0.277 对 0.079）。这与当前学术写作中 LLM 辅助的普及一致，
   但它与两组样本的构成差异混淆在一起，**不能当作 AI 使用率**。
+
+<a id="licence--许可"></a>
+<a id="licence"></a>
+<a id="许可"></a>
 
 ## 许可
 
