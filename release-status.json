@@ -1,0 +1,10 @@
+{
+  "checked_on": "2026-11-11",
+  "platform": "claude",
+  "core": "ClaudeEssaySkill-core",
+  "behavior_scope": "Bounded synthetic writing checks; no native Claude model or live application certification",
+  "source_sha256": {
+    "chi-paper": "400f33129b6dd3b91be98c8c6e3660c88a5a543830e688da29376ae759b11f94",
+    "essay-exam": "0b35e9d0fb6711d0804a114c1406bfb70ae0dc6786144b3e9197426c151bf1c5"
+  }
+}
