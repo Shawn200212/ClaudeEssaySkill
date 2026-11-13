@@ -1,10 +1,10 @@
 {
-  "checked_on": "2026-11-11",
+  "checked_on": "2026-11-12",
   "platform": "claude",
   "core": "ClaudeEssaySkill-core",
-  "behavior_scope": "Bounded synthetic writing checks; no native Claude model or live application certification",
+  "behavior_scope": "Blind writing audit (seven rounds; three judges and a fact check per draft; the final paper and statement trials met every pre-set criterion; 2026-11-11 to 2026-11-12); no native Claude model or live application certification",
   "source_sha256": {
-    "chi-paper": "400f33129b6dd3b91be98c8c6e3660c88a5a543830e688da29376ae759b11f94",
+    "chi-paper": "2f74b7776a09931ebe1215e255ad4844fa24662c2439c08f2733e89480673e19",
     "essay-exam": "0b35e9d0fb6711d0804a114c1406bfb70ae0dc6786144b3e9197426c151bf1c5"
   }
 }
